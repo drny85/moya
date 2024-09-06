@@ -27,15 +27,13 @@ const Home = () => {
       )
       .sort((a, b) => (a.date > b.date ? 1 : -1));
 
-   return <MapView style={{ flex: 1 }} provider={PROVIDER_GOOGLE} />;
-
    return (
       <View className="flex-1">
          <ParallaxScrollView
             headerBackgroundColor={{ light: COLORS.light.background, dark: COLORS.dark.background }}
             headerImage={
                <>
-                  {/* <MapHeader shouldGoBack={false} containerStyle={{ flex: 1 }} /> */}
+                  <MapHeader shouldGoBack={false} containerStyle={{ flex: 1 }} />
                   <BlurView
                      tint="light"
                      className="absolute bottom-0 left-0 right-0 z-10 gap-1 overflow-hidden rounded-md px-2 py-1"

@@ -1,16 +1,9 @@
 import { useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import {
-   KeyboardAvoidingView,
-   Platform,
-   StyleSheet,
-   Text,
-   TouchableOpacity,
-   View,
-} from 'react-native';
-import { KeyboardAvoidingScrollView } from 'react-native-keyboard-avoiding-scroll-view';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import LoginForm from '~/components/Forms/LoginForm';
 import SignupForm from '~/components/Forms/SignupForm';
+import KeyboardScreen from '~/components/KeyboardScreen';
 import { ActivityIndicator } from '~/components/nativewindui/ActivityIndicator';
 import { useAuth } from '~/providers/AuthContext';
 
@@ -28,11 +21,7 @@ const LoginScreen = () => {
    if (loading) return <ActivityIndicator />;
 
    return (
-      <KeyboardAvoidingView
-         contentContainerStyle={styles.container}
-         keyboardVerticalOffset={60}
-         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-         style={styles.container}>
+      <KeyboardScreen style={styles.container}>
          <Text style={styles.welcomeText}>Welcome</Text>
          <View style={styles.authSwitch}>
             <TouchableOpacity
@@ -50,7 +39,7 @@ const LoginScreen = () => {
          </View>
 
          {isSignUp ? <SignupForm /> : <LoginForm />}
-      </KeyboardAvoidingView>
+      </KeyboardScreen>
    );
 };
 

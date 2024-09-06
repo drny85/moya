@@ -32,51 +32,50 @@ const MapHeader = ({ shouldGoBack, containerStyle }: Props) => {
       });
 
    useEffect(() => {
-      // setTimeout(() => {
-      //    mapRef.current?.animateToRegion({
-      //       ...COORDS,
-      //       latitudeDelta: 0.002, // Smaller value for closer zoom
-      //       longitudeDelta: 0.002,
-      //    });
-      //    mapRef.current?.animateCamera({
-      //       center: COORDS,
-      //       pitch: 70,
-      //       heading: 90,
-      //       altitude: 140,
-      //    });
-      // }, 200);
+      mapRef.current?.animateToRegion({
+         ...COORDS,
+         latitudeDelta: 0.002, // Smaller value for closer zoom
+         longitudeDelta: 0.002,
+      });
+      mapRef.current?.animateCamera({
+         center: COORDS,
+         pitch: 70,
+         heading: 90,
+         altitude: 140,
+      });
    }, [mapRef]);
 
-   console.log(process.env.EXPO_PUBLIC_GOOGLE_API_IOS, process.env.EXPO_PUBLIC_GOOGLE_API_ANDROID);
    return (
       <View style={[{ flex: 0.5 }, containerStyle]}>
-         <MapView
-            ref={mapRef}
-            customMapStyle={customMapStyle}
-            initialCamera={{
-               heading: 60,
-               pitch: 50,
-               altitude: 100,
-               center: COORDS,
-            }}
-            style={{ flex: 1 }}
-            region={{
-               ...COORDS,
-               latitudeDelta: 0.002, // Smaller value for closer zoom
-               longitudeDelta: 0.002,
-            }}
-            initialRegion={{
-               ...COORDS,
-               latitudeDelta: 0.002, // Smaller value for closer zoom
-               longitudeDelta: 0.002,
-            }}>
-            <Marker
-               coordinate={COORDS}
-               identifier="barber"
-               description="1420 Clay Ave"
-               title="Moya Barber-Shop"
-            />
-         </MapView>
+         {location && (
+            <MapView
+               ref={mapRef}
+               customMapStyle={customMapStyle}
+               // initialCamera={{
+               //    heading: 60,
+               //    pitch: 50,
+               //    altitude: 100,
+               //    center: COORDS,
+               // }}
+               style={{ flex: 1 }}
+               region={{
+                  ...COORDS,
+                  latitudeDelta: 0.002, // Smaller value for closer zoom
+                  longitudeDelta: 0.002,
+               }}
+               initialRegion={{
+                  ...COORDS,
+                  latitudeDelta: 0.002, // Smaller value for closer zoom
+                  longitudeDelta: 0.002,
+               }}>
+               <Marker
+                  coordinate={COORDS}
+                  identifier="barber"
+                  description="1420 Clay Ave"
+                  title="Moya Barber-Shop"
+               />
+            </MapView>
+         )}
          <View
             style={{
                top,

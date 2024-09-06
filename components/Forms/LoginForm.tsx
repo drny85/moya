@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
-import { View, Alert, TouchableOpacity } from 'react-native';
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { Alert, TouchableOpacity, View } from 'react-native';
 import * as z from 'zod';
-import TextInput from '../TextInput';
 import { useAuth } from '~/providers/AuthContext';
 import { FIREBASE_ERRORS } from '~/utils/firebaseErrorMessages';
-import { Text } from '../nativewindui/Text';
 import { Button } from '../Button';
+import { Text } from '../nativewindui/Text';
+import TextInput from '../TextInput';
 
 import { Sheet, useSheetRef } from '../nativewindui/Sheet';
 import ForgotPassword from './ForgtoPassword';
-import { Feather } from '@expo/vector-icons';
 
 const loginSchema = z.object({
    email: z.string().email(),
@@ -56,7 +55,7 @@ const LoginForm: React.FC = () => {
                label="Password"
                textContentType="oneTimeCode"
                placeholder="Enter your password"
-               secureTextEntry={showPassword}
+               secureTextEntry={!showPassword}
             />
             <TouchableOpacity className="mb-3" onPress={() => setShowPassword((prev) => !prev)}>
                <Text className="@ self-end text-muted">

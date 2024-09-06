@@ -7899,6 +7899,11 @@ react-native-keyboard-avoiding-scroll-view@^1.0.1:
   resolved "https://registry.yarnpkg.com/react-native-keyboard-avoiding-scroll-view/-/react-native-keyboard-avoiding-scroll-view-1.0.1.tgz#61fe9a921474b789610a746bb30dc2b7b265b4fd"
   integrity sha512-l+CYCbQ7fueM4kat28zSdi7r1ABxRBHikVCTmjGQLIvJBABxS7qgi3Y9ozU8CpqD6wEeqPb02AnBS+jiAYXBvA==
 
+react-native-keyboard-controller@^1.13.4:
+  version "1.13.4"
+  resolved "https://registry.yarnpkg.com/react-native-keyboard-controller/-/react-native-keyboard-controller-1.13.4.tgz#0f85ac2a1b594fd65283d98cb044f331ab598ec5"
+  integrity sha512-80unzD4S+ybgYOluhdeV4zV62ejg6Jt0l5iw7PuA1y3aM1a1+5tS2WoHLNk8605oDaGcVLGNMNF0Qv4GWe97Bg==
+
 react-native-maps@1.14.0:
   version "1.14.0"
   resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-1.14.0.tgz#1e5cac8e88d80002c512dd4763a205493a1ae58d"

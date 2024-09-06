@@ -16,10 +16,10 @@ const config: ExpoConfig = {
          'expo-build-properties',
          {
             ios: {
-               newArchEnabled: true,
+               newArchEnabled: false,
             },
             android: {
-               newArchEnabled: true,
+               newArchEnabled: false,
             },
          },
       ],
@@ -79,8 +79,23 @@ const config: ExpoConfig = {
          foregroundImage: './assets/adaptive-icon.png',
          backgroundColor: '#ffffff',
       },
+      softwareKeyboardLayoutMode: 'pan',
       package: 'net.robertdev.moyabarber',
       versionCode: 1,
+      intentFilters: [
+         {
+            action: 'VIEW',
+            autoVerify: true,
+            data: [
+               {
+                  scheme: 'https',
+                  host: '*.myapp.io',
+                  pathPrefix: '/records',
+               },
+            ],
+            category: ['BROWSABLE', 'DEFAULT'],
+         },
+      ],
       config: {
          googleMaps: {
             apiKey: process.env.EXPO_PUBLIC_GOOGLE_API_ANDROID,

@@ -37,7 +37,7 @@ const ServicePicker = ({ services, isBarber, onPressServiceEdit }: Props) => {
    return (
       <View className="m-2 rounded-2xl bg-card py-1 shadow-sm">
          {!user?.isBarber && (
-            <Text className="font-raleway-bold text-center text-lg">Select a Service</Text>
+            <Text className="text-center font-raleway-bold text-lg">Select a Service</Text>
          )}
          {services
             .sort((a, b) => (a.price < b.price ? 1 : -1))
@@ -62,18 +62,18 @@ const ServicePicker = ({ services, isBarber, onPressServiceEdit }: Props) => {
                         </View>
                         {selectedIndex !== -1 && (
                            <Animated.View entering={FadeInUp} exiting={FadeOut}>
-                              <View className="flex-row items-center gap-x-2">
+                              <View className="w-1/3 max-w-20 flex-row items-center justify-between py-1">
                                  <TouchableOpacity
                                     onPress={() => onRemovePress(selected)}
                                     className={`${selected.quantity === 1 ? 'opacity-30' : 'opacity-100'}`}
                                     disabled={selected.quantity === 1}>
-                                    <Feather name="minus-circle" size={20} color={colors.primary} />
+                                    <Feather name="minus-circle" size={22} color={colors.primary} />
                                  </TouchableOpacity>
                                  <Text className="font-semibold text-muted dark:text-white">
                                     {selected.quantity}
                                  </Text>
                                  <TouchableOpacity onPress={() => onAddPress(selected)}>
-                                    <Feather name="plus-circle" size={20} color={colors.accent} />
+                                    <Feather name="plus-circle" size={22} color={colors.accent} />
                                  </TouchableOpacity>
                               </View>
                            </Animated.View>
