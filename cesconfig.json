@@ -1,0 +1,56 @@
+{
+   "cesVersion": "2.11.14",
+   "projectName": "moya-barber",
+   "packages": [
+      {
+         "name": "expo-router",
+         "type": "navigation",
+         "options": {
+            "type": "tabs"
+         }
+      },
+      {
+         "name": "nativewindui",
+         "type": "styling",
+         "options": {
+            "selectedComponents": [
+               "activity-indicator",
+               "activity-view",
+               "avatar",
+               "bottom-sheet",
+               "date-picker",
+               "picker",
+               "progress-indicator",
+               "ratings-indicator",
+               "selectable-text",
+               "slider",
+               "text",
+               "toggle",
+               "action-sheet"
+            ]
+         }
+      },
+      {
+         "name": "firebase",
+         "type": "authentication"
+      }
+   ],
+   "flags": {
+      "noGit": false,
+      "noInstall": false,
+      "overwrite": false,
+      "importAlias": true,
+      "packageManager": "npm",
+      "eas": true
+   },
+   "packageManager": {
+      "type": "npm",
+      "version": "10.8.0"
+   },
+   "os": {
+      "type": "Darwin",
+      "platform": "darwin",
+      "arch": "arm64",
+      "kernelVersion": "24.0.0"
+   }
+}

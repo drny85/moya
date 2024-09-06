@@ -1,0 +1,28 @@
+{
+   "cli": {
+      "version": ">= 10.1.1"
+   },
+   "build": {
+      "development": {
+         "channel": "development",
+         "developmentClient": true,
+         "distribution": "internal",
+         "ios": {
+            "resourceClass": "medium"
+         }
+      },
+      "preview": {
+         "extends": "development",
+         "channel": "preview",
+         "ios": {
+            "simulator": true
+         }
+      },
+      "production": {
+         "channel": "production"
+      }
+   },
+   "submit": {
+      "production": {}
+   }
+}
