@@ -30,7 +30,7 @@ const MapHeader = ({ shouldGoBack, containerStyle }: Props) => {
          latitude: location?.coords.latitude,
          longitude: location?.coords.longitude,
       });
-
+   console.log(location);
    useEffect(() => {
       mapRef.current?.animateToRegion({
          ...COORDS,

@@ -69,7 +69,6 @@
     "react-native-confetti-cannon": "^1.5.2",
     "react-native-gesture-handler": "~2.16.1",
     "react-native-gifted-charts": "^1.4.29",
-    "react-native-keyboard-avoiding-scroll-view": "^1.0.1",
     "react-native-keyboard-controller": "^1.13.4",
     "react-native-maps": "1.14.0",
     "react-native-mmkv": "^2.12.2",

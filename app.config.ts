@@ -89,8 +89,8 @@ const config: ExpoConfig = {
             data: [
                {
                   scheme: 'https',
-                  host: '*.myapp.io',
-                  pathPrefix: '/records',
+                  host: 'moya-site.vercel.app',
+                  pathPrefix: '/',
                },
             ],
             category: ['BROWSABLE', 'DEFAULT'],

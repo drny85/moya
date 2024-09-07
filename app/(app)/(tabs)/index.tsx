@@ -36,7 +36,7 @@ const Home = () => {
                   <MapHeader shouldGoBack={false} containerStyle={{ flex: 1 }} />
                   <BlurView
                      tint="light"
-                     className="absolute bottom-0 left-0 right-0 z-10 gap-1 overflow-hidden rounded-md px-2 py-1"
+                     className="absolute bottom-0 left-0 right-0 z-10 gap-1 overflow-hidden rounded-md  px-2 py-1"
                      intensity={40}>
                      <View>
                         <Text variant={'title3'}>Moya Barber Shop</Text>
