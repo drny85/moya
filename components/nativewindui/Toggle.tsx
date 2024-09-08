@@ -11,7 +11,7 @@ export function Toggle(props: React.ComponentPropsWithoutRef<typeof Switch>) {
             true: colors.accent,
             false: colors.grey,
          }}
-         thumbColor={COLORS.white}
+         thumbColor={colors.primary}
          {...props}
       />
    );

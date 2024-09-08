@@ -24,7 +24,7 @@ type Props = {
 
 const ServicePicker = ({ services, isBarber, onPressServiceEdit }: Props) => {
    const { user } = useAuth();
-   const { colors } = useColorScheme();
+   const { colors, isDarkColorScheme } = useColorScheme();
    const { selectedServices, setSelectedServiceOrRemoveService, onServiceQuantityUpdates } =
       useAppointmentFlowStore();
 
@@ -67,7 +67,7 @@ const ServicePicker = ({ services, isBarber, onPressServiceEdit }: Props) => {
                                     onPress={() => onRemovePress(selected)}
                                     className={`${selected.quantity === 1 ? 'opacity-30' : 'opacity-100'}`}
                                     disabled={selected.quantity === 1}>
-                                    <Feather name="minus-circle" size={22} color={colors.primary} />
+                                    <Feather name="minus-circle" size={22} color={colors.accent} />
                                  </TouchableOpacity>
                                  <Text className="font-semibold text-muted dark:text-white">
                                     {selected.quantity}
@@ -82,9 +82,13 @@ const ServicePicker = ({ services, isBarber, onPressServiceEdit }: Props) => {
                      <View className="w-1/5  items-center gap-y-2">
                         {isBarber ? (
                            <TouchableOpacity
-                              className="flex-row items-center gap-x-1"
+                              className="flex-row items-center gap-2"
                               onPress={() => onPressServiceEdit(service)}>
-                              <Feather name="edit" size={20} />
+                              <Feather
+                                 name="edit"
+                                 size={20}
+                                 color={isDarkColorScheme ? '#ffffff' : '#212121'}
+                              />
                               <Text>Edit</Text>
                            </TouchableOpacity>
                         ) : (

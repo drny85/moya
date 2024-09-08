@@ -8,11 +8,10 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { getDistanceFromLatLonInMeters } from '~/utils/getDistanceBetweenLocations';
 import { useLocation } from '~/hooks/useLocation';
 import { Text } from './nativewindui/Text';
-
-const COORDS = {
-   latitude: 40.83728,
-   longitude: -73.90757,
-};
+import { Image } from 'expo-image';
+import { useAuth } from '~/providers/AuthContext';
+import { COORDS } from '~/constants';
+import { useColorScheme } from '~/lib/useColorScheme';
 
 type Props = {
    shouldGoBack: boolean;
@@ -21,16 +20,11 @@ type Props = {
 
 const MapHeader = ({ shouldGoBack, containerStyle }: Props) => {
    const mapRef = React.useRef<MapView>(null);
+   const { isDarkColorScheme } = useColorScheme();
+   const { user } = useAuth();
    const { top } = useSafeAreaInsets();
-   const { loading, location } = useLocation();
-   const distance =
-      location &&
-      !loading &&
-      getDistanceFromLatLonInMeters(COORDS, {
-         latitude: location?.coords.latitude,
-         longitude: location?.coords.longitude,
-      });
-   console.log(location);
+   const { location } = useLocation();
+
    useEffect(() => {
       mapRef.current?.animateToRegion({
          ...COORDS,
@@ -78,33 +72,41 @@ const MapHeader = ({ shouldGoBack, containerStyle }: Props) => {
          )}
          <View
             style={{
-               top,
+               top: top - 10,
                position: 'absolute',
+
                zIndex: 20,
                padding: 4,
-               left: 8,
-               width: '98%',
+               left: 0,
+               right: 0,
+               width: '100%',
                flexDirection: 'row',
+               alignItems: 'center',
+               paddingHorizontal: 16,
                justifyContent: 'space-between',
             }}>
             {shouldGoBack ? (
                <TouchableOpacity className="rounded-full p-2" onPress={router.back}>
-                  <FontAwesome name="chevron-left" size={26} color="#212121" />
+                  <FontAwesome
+                     name="chevron-left"
+                     size={26}
+                     color={isDarkColorScheme ? 'white' : 'black'}
+                  />
                </TouchableOpacity>
             ) : (
-               <View />
+               <Image
+                  style={{
+                     width: 60,
+                     height: 60,
+                     borderRadius: 30,
+                     objectFit: 'cover',
+                     backgroundColor: 'white',
+                  }}
+                  source={user?.image ? { uri: user.image } : require('~/assets/images/banner.png')}
+               />
             )}
-            {distance && (
-               <View className="rounded-full bg-card px-2 py-1">
-                  <Text className="text-lg font-semibold text-muted">
-                     {distance.toFixed(1) === '0.0'
-                        ? 'You Here!'
-                        : ` You are ${distance.toFixed(1)} miles away`}
-                  </Text>
-               </View>
-            )}
+            <Text className="font-raleway-bold text-2xl">Hi, {user?.name?.split(' ')[0]}</Text>
             <TouchableOpacity
-               className="mr-3"
                onPress={() => {
                   mapRef.current?.animateCamera({
                      center: COORDS,
@@ -113,7 +115,11 @@ const MapHeader = ({ shouldGoBack, containerStyle }: Props) => {
                      altitude: 100,
                   });
                }}>
-               <MaterialIcons name="location-searching" size={28} color="#212121" />
+               <MaterialIcons
+                  name="location-searching"
+                  size={28}
+                  color={isDarkColorScheme ? 'white' : 'black'}
+               />
             </TouchableOpacity>
          </View>
       </View>

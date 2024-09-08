@@ -11,7 +11,7 @@ import { Button } from '~/components/Button';
 import CommunicationButtons from '~/components/CommunicationButtons';
 
 import { Text } from '~/components/nativewindui/Text';
-import { toastAlert } from '~/lib/toast';
+import { toastAlert, toastMessage } from '~/lib/toast';
 import { useAppointmentStore } from '~/providers/useAppointmentStore';
 import { getAppointmentDuration } from '~/utils/getAppointmentDuration';
 import { getAppointmentPrice } from '~/utils/getAppointmentPrice';
@@ -60,7 +60,7 @@ const BarberAppointmentView = () => {
                tint="prominent"
                className="absolute bottom-0 left-0 right-0 z-10 gap-1 overflow-hidden p-4">
                <View className="flex-row items-center justify-between gap-4 ">
-                  <Text variant="title2" className=" text-slate-500">
+                  <Text variant="title2" className=" text-slate-500  dark:text-white">
                      {appointment.customer.name}
                   </Text>
                   <View className="w-1/3  flex-row self-end">
@@ -74,21 +74,25 @@ const BarberAppointmentView = () => {
                <Text className="text-xl font-semibold">Service Details</Text>
                <View>
                   {appointment.services.map((s, index) => (
-                     <Text className="font-semibold text-muted" key={s.id}>
+                     <Text className="font-raleway-bold text-muted  dark:text-white" key={s.id}>
                         {s.name} {s.quantity > 1 ? `x ${s.quantity}` : ''}
                         {index !== appointment.services.length - 1 && ','}
                      </Text>
                   ))}
                </View>
                <View className="flex-row items-center gap-3">
-                  <Text className="text-muted">
+                  <Text className="text-muted dark:text-white">
                      {getAppointmentDuration(appointment.services)} mins
                   </Text>
                   <View className="h-1 w-1 rounded-full bg-slate-400" />
-                  <Text className="text-muted">${getAppointmentPrice(appointment.services)}</Text>
+                  <Text className="text-muted  dark:text-white">
+                     ${getAppointmentPrice(appointment.services)}
+                  </Text>
                </View>
-               <Text className="text-muted">{format(appointment.date, 'PPP')}</Text>
-               <Text className="text-muted">
+               <Text className="text-muted  dark:text-white">
+                  {format(appointment.date, 'PPP')}
+               </Text>
+               <Text className="text-muted  dark:text-white">
                   {appointment.startTime} -{' '}
                   {format(
                      addMinutes(
@@ -98,7 +102,7 @@ const BarberAppointmentView = () => {
                      'p'
                   )}
                </Text>
-               <Text className="text-sm text-muted">
+               <Text className="text-sm text-muted  dark:text-white">
                   ({formatDistanceToNow(new Date(appointment.date))}){' '}
                   {isPast(new Date(appointment.date)) ? 'ago' : 'from now'}
                </Text>
@@ -108,7 +112,7 @@ const BarberAppointmentView = () => {
                   </Text>
                )}
             </View>
-            <Text className="text-center text-lg text-muted">Status</Text>
+            <Text className="text-center text-lg text-muted  dark:text-white">Status</Text>
             <View className={`my-2 w-1/2 self-center rounded-full bg-card px-3 shadow-sm`}>
                <Text
                   className={`my-2 text-center text-xl font-bold capitalize ${appointment.status === 'pending' ? 'text-orange-400' : appointment.status === 'confirmed' ? 'text-green-400' : appointment.status === 'cancelled' ? 'text-red-500' : 'text-slate-600'}`}>
@@ -145,12 +149,23 @@ const BarberAppointmentView = () => {
                   title="Confirm"
                   iconName="thumbs-up"
                   style={{ paddingHorizontal: 30 }}
-                  onPress={() => {
-                     updateAppointmentInDatabase({
+                  onPress={async () => {
+                     const updated = await updateAppointmentInDatabase({
                         ...appointment,
                         status: 'confirmed',
                         changesMadeBy: 'barber',
                      });
+
+                     if (updated) {
+                        toastMessage({
+                           title: 'Confirmed',
+                           message: 'The appointment has been confirmed',
+                           preset: 'done',
+                           duration: 2,
+                        });
+
+                        router.back();
+                     }
                   }}
                />
             </View>

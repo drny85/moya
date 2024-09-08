@@ -2,6 +2,7 @@ import React from 'react';
 import { TextInput as RNTextInput, View, Text, StyleSheet, TextInputProps } from 'react-native';
 import { Controller } from 'react-hook-form';
 import { formatPhone } from '~/utils/formatPhone';
+import { useColorScheme } from '~/lib/useColorScheme';
 
 type TextInputParams = TextInputProps & {
    name: string;
@@ -22,6 +23,7 @@ const TextInput: React.FC<TextInputParams> = ({
    rules,
    ...others
 }) => {
+   const { colorScheme } = useColorScheme();
    return (
       <View style={styles.container}>
          {label && <Text style={styles.label}>{label}</Text>}
@@ -32,7 +34,11 @@ const TextInput: React.FC<TextInputParams> = ({
             render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                <>
                   <RNTextInput
-                     style={[styles.input, error && styles.errorInput]}
+                     style={[
+                        styles.input,
+                        { color: colorScheme === 'dark' ? '#ffffff' : '#212121' },
+                        error && styles.errorInput,
+                     ]}
                      onBlur={onBlur}
                      onChangeText={
                         name === 'email'

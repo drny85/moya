@@ -18,12 +18,16 @@ const DateTimeAppointmentPicker = ({ onPress, barber }: Props) => {
       <View className="bg-card">
          <ScrollView contentContainerClassName="gap-3 p-2 mt-3 bg-card">
             <View>
-               <Text className="mb-1 ml-2 text-lg font-semibold text-slate-600">Date</Text>
+               <Text className="mb-1 ml-2 text-lg font-semibold text-slate-600 dark:text-white">
+                  Date
+               </Text>
                <WeekSelector schedule={barber.schedule} />
             </View>
 
             <View className="mt-3">
-               <Text variant="subhead" className="mb-1 ml-2 text-lg font-semibold text-slate-600">
+               <Text
+                  variant="subhead"
+                  className="mb-1 ml-2 text-lg font-semibold text-slate-600 dark:text-white">
                   Time
                </Text>
                <TimeSlotPickerComponent barber={barber} />

@@ -38,7 +38,7 @@ const BarberCard = ({ barber, index, isOwner, activeNode, disabled = false }: Pr
          <TouchableOpacity
             disabled={disabled}
             onPress={() => router.push({ pathname: '/barber', params: { barberId: barber.id } })}
-            className="m-2 rounded-lg bg-card shadow-sm">
+            className="m-2 rounded-lg bg-card">
             <View className="flex-row items-center gap-2">
                <Image
                   source={
@@ -65,7 +65,9 @@ const BarberCard = ({ barber, index, isOwner, activeNode, disabled = false }: Pr
                   <View className="mt-4 flex-row items-center justify-between">
                      <View className="flex-row items-center gap-1">
                         <FontAwesome name="star" size={20} color="orange" />
-                        <Text className="text-muted">{barberRating.toFixed(1)} rating</Text>
+                        <Text className="text-muted opacity-80 dark:text-white">
+                           {barberRating.toFixed(1)} rating
+                        </Text>
                      </View>
                      {isOwner ? (
                         activeNode

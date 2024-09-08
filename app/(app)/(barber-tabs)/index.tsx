@@ -1,5 +1,6 @@
 import { Feather } from '@expo/vector-icons';
 import { format, isPast, isToday } from 'date-fns';
+import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import React, { useMemo } from 'react';
 import { FlatList, ScrollView, TouchableOpacity, View } from 'react-native';
@@ -50,9 +51,15 @@ const BarberHome = () => {
    return (
       <View className="flex-1 bg-card">
          <View className="flex-1 gap-2">
-            <View style={{ paddingTop: top }} className="h-1/2 rounded-3xl bg-card p-2 shadow-md">
+            <View style={{ paddingTop: top }} className="h-1/2 rounded-3xl bg-card p-2 shadow-sm">
                <View className="flex-row items-center justify-between">
-                  <Text className="font-raleway text-2xl font-semibold">Welcome {user?.name}</Text>
+                  <Image
+                     source={
+                        user?.image ? { uri: user.image } : require('~/assets/images/banner.png')
+                     }
+                     style={{ height: 60, width: 60, borderRadius: 30, objectFit: 'cover' }}
+                  />
+                  <Text className="font-raleway text-2xl">Hi {user?.name?.split(' ')[0]}</Text>
                   <TouchableOpacity
                      onPress={() => shareBarberLink(user?.id!)}
                      className="h-10 w-10 items-center justify-center rounded-full bg-slate-200 p-1">
@@ -103,7 +110,7 @@ const BarberHome = () => {
                      horizontal
                      ListEmptyComponent={
                         <View className="p-2">
-                           <Text className="text-muted">No appointments</Text>
+                           <Text className="text-muted dark:text-white">No appointments</Text>
                         </View>
                      }
                      renderItem={({ item }) => {
@@ -115,7 +122,7 @@ const BarberHome = () => {
                                     params: { appointmentId: item.id },
                                  })
                               }
-                              className="m-2 items-center justify-center rounded-md bg-card p-2 shadow-sm">
+                              className="m-2 items-center justify-center rounded-md bg-background p-2 shadow-sm">
                               <Text className="font-semibold">{format(item.date, 'eee')}</Text>
                               <Text>{item.startTime}</Text>
                            </TouchableOpacity>
@@ -131,7 +138,7 @@ const BarberHome = () => {
    return (
       <Container>
          <View className="mx-3 mb-2 flex-row items-center justify-between">
-            <Text className="font-raleway text-center text-xl">
+            <Text className="text-center font-raleway text-xl">
                Welcome {user?.name?.split(' ')[0]}
             </Text>
             <TouchableOpacity

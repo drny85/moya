@@ -15,6 +15,7 @@ import { BarChart } from 'react-native-gifted-charts';
 import { Appointment } from '~/shared/types';
 import { generateRandomHexColor } from '~/utils/generateRandomHexColor';
 import { Text } from './nativewindui/Text';
+import { useColorScheme } from '~/lib/useColorScheme';
 
 type Segment = 'Today' | 'WTD' | 'YTD' | 'ALL';
 const OPTIONS = ['Today', 'WTD', 'YTD', 'ALL'];
@@ -24,6 +25,7 @@ interface EarningComponentProps {
 }
 
 const EarningComponent: React.FC<EarningComponentProps> = ({ appointments }) => {
+   const { isDarkColorScheme } = useColorScheme();
    const [selectedSegment, setSelectedSegment] = useState<Segment>('Today');
    const [earningsData, setEarningsData] = useState<any>({ Today: [], WTD: [], YTD: [], ALL: [] });
    const [detailsData, setDetailsData] = useState<any>({ Today: [], WTD: [], YTD: [], ALL: [] });
@@ -128,6 +130,10 @@ const EarningComponent: React.FC<EarningComponentProps> = ({ appointments }) => 
                   color: 'grey',
                   fontSize: 14,
                }}
+               xAxisLabelTextStyle={{
+                  color: isDarkColorScheme ? '#ffffff' : '#212121',
+                  fontSize: 14,
+               }}
                frontColor={generateRandomHexColor()}
                yAxisThickness={0}
                xAxisThickness={0}
@@ -135,10 +141,13 @@ const EarningComponent: React.FC<EarningComponentProps> = ({ appointments }) => 
             />
          </View>
          <View className="rounded-md bg-card p-2 shadow-sm">
-            <Text className="text-center text-lg text-muted">{selectedSegment}</Text>
+            <Text className="text-center font-raleway-bold text-lg text-muted dark:text-white">
+               {selectedSegment}
+            </Text>
 
             <FlatList
                data={detailsData[selectedSegment]}
+               ListEmptyComponent={<Text className="text-center text-muted">No Data</Text>}
                renderItem={renderDetailItem}
                keyExtractor={(item) => item.label}
                style={{ marginTop: 10 }}

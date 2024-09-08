@@ -183,7 +183,7 @@ export default function ModernSettingsPage() {
                      <AntDesign name="edit" size={24} color="white" />
                   </TouchableOpacity>
                   <TouchableOpacity onPress={handleSignOut}>
-                     <Text className="font-semibold text-primary">Log Out</Text>
+                     <Text className="font-semibold  text-white">Log Out</Text>
                   </TouchableOpacity>
                </View>
                <BlurView

@@ -15,7 +15,7 @@ export const Button = forwardRef<TouchableOpacity, ButtonProps>(
          <TouchableOpacity
             ref={ref}
             {...touchableProps}
-            className="flex-row items-center justify-center rounded-full bg-accent px-4 py-3 shadow-sm"
+            className="flex-row items-center justify-center rounded-full bg-accent px-4 py-3 shadow-sm dark:bg-primary"
             style={[touchableProps.style]}>
             {iconName && (
                <FontAwesome

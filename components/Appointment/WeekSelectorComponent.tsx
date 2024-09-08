@@ -7,9 +7,10 @@ import Animated, { SlideInRight } from 'react-native-reanimated';
 import { Text } from '../nativewindui/Text';
 
 import { useAppointmentFlowStore } from '~/providers/useAppoitmentFlowStore';
-import { Days, Schedule } from '~/types/typings';
+
 import { useAppointmentStore } from '~/providers/useAppointmentStore';
 import { useAuth } from '~/providers/AuthContext';
+import { Days, Schedule } from '~/shared/types';
 
 type DayProps = {
    date: Date;
@@ -32,13 +33,13 @@ const Day: React.FC<DayProps> = ({ date, isPast, isSelected, isOff, onPress, has
             setSelectedTimeSlot(null);
             setIndex(0);
          }}
-         className={`items-center rounded-lg ${isSelected ? 'bg-accent' : isOff ? 'bg-grey border-2 border-dashed border-slate-400' : 'bg-card'}`}>
+         className={`my-1 items-center rounded-lg shadow-sm ${isSelected ? 'bg-accent' : isOff ? 'bg-grey border-2 border-dashed border-slate-400' : 'bg-card'}`}>
          <Animated.View
             entering={SlideInRight}
             key={date.toISOString()}
             style={[styles.dayContainer, {}]}>
             <Text
-               className={`${isSelected ? 'font-semibold text-white' : ''} ${isPast ? 'opacity-35' : ''} `}>
+               className={`${isSelected ? 'font-raleway-bold text-white' : 'font-raleway'} ${isPast ? 'opacity-35' : ''} `}>
                {format(date, 'E')}
             </Text>
             <Text
@@ -127,13 +128,13 @@ const WeekSelector: React.FC<Props> = ({ schedule, onPress }) => {
    }, [currentDate]);
 
    return (
-      <View style={styles.container}>
+      <View className="flex-1 items-center">
          <View style={styles.header}>
             <TouchableOpacity onPress={handlePreviousWeek} style={styles.arrowButton}>
                <Feather name="chevron-left" size={28} color="grey" />
             </TouchableOpacity>
             <TouchableOpacity onPress={handleTitlePress}>
-               <Text variant="heading">{getMonthName(currentDate)}</Text>
+               <Text className="font-roboto-bold text-lg">{getMonthName(currentDate)}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={handleNextWeek} style={styles.arrowButton}>
@@ -175,11 +176,6 @@ const WeekSelector: React.FC<Props> = ({ schedule, onPress }) => {
 };
 
 const styles = StyleSheet.create({
-   container: {
-      flex: 1,
-      alignItems: 'center',
-      //gap: 10,
-   },
    header: {
       flexDirection: 'row',
       alignItems: 'center',

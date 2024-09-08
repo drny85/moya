@@ -21,7 +21,7 @@ type ParamsProps = {
 const AppointmentPage = () => {
    const { user } = useAuth();
    const { confetti } = useLocalSearchParams<ParamsProps>();
-   const { colors } = useColorScheme();
+   const { colors, isDarkColorScheme } = useColorScheme();
    const [selectedIndex, setSelectedIndex] = useState(0);
    const appointments = useAppointmentStore((s) =>
       s.appointments.filter((appointment) => appointment.customer.id === user?.id)
@@ -50,7 +50,7 @@ const AppointmentPage = () => {
       <View className="flex-1 p-1">
          <SegmentedControl
             values={VALUES}
-            fontStyle={{ fontSize: 16, color: '#212121' }}
+            fontStyle={{ fontSize: 16, color: isDarkColorScheme ? '#ffffff' : '#212121' }}
             tintColor={COLORS.light.accent}
             activeFontStyle={{ color: '#ffffff', fontWeight: '700', fontSize: 18 }}
             style={{
@@ -68,6 +68,7 @@ const AppointmentPage = () => {
             data={selectedIndex === 0 ? upcomingAppointments : pastAppointmens}
             estimatedItemSize={100}
             showsVerticalScrollIndicator={false}
+            ItemSeparatorComponent={() => <View className="h-[1px] w-full bg-accent  opacity-30" />}
             ListEmptyComponent={
                <View className="mx-3 gap-10">
                   <Text className=" mt-10 text-center text-xl text-muted">

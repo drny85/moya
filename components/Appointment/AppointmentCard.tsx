@@ -27,7 +27,7 @@ const AppointmentCard = ({ appointmentId, onPress, actionsButton }: Props) => {
    if (!item) return null;
 
    return (
-      <View className={`my-1 items-center gap-2 rounded-md bg-card p-2 shadow-sm`}>
+      <View className={`my-1 items-center gap-2 rounded-md bg-card p-2`}>
          <TouchableOpacity
             onPress={() => onPress(item)}
             className="my-1 flex-row items-center gap-2">
@@ -56,24 +56,24 @@ const AppointmentCard = ({ appointmentId, onPress, actionsButton }: Props) => {
                <View>
                   {/* <Text className="py-1 font-semibold text-muted">{names.join(', ')}</Text> */}
                   {item.services.map((s, index) => (
-                     <Text className="font-semibold text-muted" key={s.id}>
+                     <Text className="font-raleway-bold text-muted dark:text-white" key={s.id}>
                         {s.name} {s.quantity > 1 ? `x ${s.quantity}` : ''}{' '}
                         {index !== item.services.length - 1 && ','}
                      </Text>
                   ))}
                </View>
-               <View className="flex-row items-center gap-x-2">
-                  <Text className="text-sm  font-semibold text-muted">At {item.startTime}</Text>
+               <View className="flex-row items-center gap-2">
+                  <Text className="text-sm text-muted dark:text-white">At {item.startTime}</Text>
                   <View className="h-1 w-1 rounded-full bg-muted" />
-                  <Text className="text-sm  font-semibold text-muted">{duration} mins</Text>
+                  <Text className="text-sm text-muted dark:text-white">{duration} mins</Text>
                </View>
-               <Text className="text-sm  font-semibold text-muted">
+               <Text className="text-sm text-muted">
                   Price: ${getAppointmentPrice(item.services)}
                </Text>
-               <Text className="text-sm  font-semibold text-muted">
+               <Text className="text-sm text-muted dark:text-white">
                   {format(item.date, 'ccc - PPP')}
                </Text>
-               <Text className="text-sm text-muted">
+               <Text className="text-sm text-muted dark:text-white">
                   ({formatDistanceToNow(new Date(item.date))}){' '}
                   {isPast(new Date(item.date)) ? 'ago' : 'from now'}
                </Text>

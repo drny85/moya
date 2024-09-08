@@ -48,7 +48,7 @@ const BarberDetails = () => {
       appointments.findIndex((a) => a.status === 'completed') !== -1;
    const [selectedIndex, setSelectedIndex] = useState(0);
 
-   const { colors } = useColorScheme();
+   const { colors, isDarkColorScheme } = useColorScheme();
    const { getBarberById } = useBarbersStore();
    const barber = getBarberById(barberId);
 
@@ -99,11 +99,15 @@ const BarberDetails = () => {
          <BarberImageHeader barber={barber} onPressBack={router.back} showBookingButton={true} />
          <SegmentedControl
             values={VALUES}
-            fontStyle={{ fontSize: 16 }}
+            fontStyle={{ fontSize: 16, color: '#ffffff' }}
             tintColor={colors.accent}
-            activeFontStyle={{ color: '#ffffff', fontWeight: '700', fontSize: 18 }}
+            activeFontStyle={{
+               color: !isDarkColorScheme ? '#ffffff' : '#212121',
+               fontWeight: '700',
+               fontSize: 18,
+            }}
             style={{
-               backgroundColor: colors.card,
+               backgroundColor: colors.primary,
                height: 40,
                width: '80%',
                alignSelf: 'center',

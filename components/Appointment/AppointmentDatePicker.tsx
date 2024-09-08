@@ -24,12 +24,12 @@ const AppointmentDatePicker = ({ onPress }: Props) => {
                {selectedTimeSlot && (
                   <View>
                      <View className="flex-row items-center gap-x-2">
-                        <Text className="text-lg font-semibold text-muted">
+                        <Text className="text-lg font-semibold text-muted dark:text-white">
                            {selectedTimeSlot.time}
                         </Text>
                         {selectedServices.length > 0 && (
-                           <Text className="text-lg font-semibold text-muted">
-                              -{' '}
+                           <Text className="text-lg font-semibold text-muted dark:text-white">
+                              -
                               {format(
                                  addMinutes(
                                     getBookingDate(selectedDate, selectedTimeSlot?.time),
@@ -41,7 +41,9 @@ const AppointmentDatePicker = ({ onPress }: Props) => {
                         )}
                      </View>
                      {selectedServices.length > 0 && (
-                        <Text className="text-sm text-muted">Duration: {duration} mins</Text>
+                        <Text className="text-sm text-muted dark:text-white">
+                           Duration: {duration} mins
+                        </Text>
                      )}
                   </View>
                )}

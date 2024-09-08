@@ -58,13 +58,13 @@ const TimeSlotPickerComponent: React.FC<TimeSlotPickerProps> = ({ barber, date, 
       .filter((a) => a.barber.id === barber?.id)
       .filter((b) => isSameDay(b.date, day.toISOString()))
       .map((appointment) => appointment.startTime);
-   const durationTotal = appointments
-      .filter((app) => app.status !== 'cancelled')
-      .filter((a) => a.barber.id === barber?.id)
-      .filter((b) => isSameDay(b.date, day.toISOString()))
-      .map((appointment) => appointment.services)
-      .flat()
-      .reduce((acc, curr) => curr.duration * curr.quantity + acc, 0);
+   // const durationTotal = appointments
+   //    .filter((app) => app.status !== 'cancelled')
+   //    .filter((a) => a.barber.id === barber?.id)
+   //    .filter((b) => isSameDay(b.date, day.toISOString()))
+   //    .map((appointment) => appointment.services)
+   //    .flat()
+   //    .reduce((acc, curr) => curr.duration * curr.quantity + acc, 0);
 
    const unaivailableTimeSlots = addUnavailableTimeSlots(
       bookedSlots,
@@ -106,10 +106,10 @@ const TimeSlotPickerComponent: React.FC<TimeSlotPickerProps> = ({ barber, date, 
             onPress={() =>
                onTilePress ? handleSecondPress(item, index) : handlePress(item, index)
             }
-            className={`mx-1 rounded-full px-3 ${item.isBooked ? 'border-2 border-dashed border-slate-300' : ''}  ${selectedTimeSlot?.time === item.time ? 'bg-accent' : changeColor ? 'bg-gray-200' : 'bg-gray-300'}`}>
-            <View className="items-center justify-center">
+            className={`mx-1 rounded-full px-3 ${item.isBooked ? 'border-2 border-dashed border-slate-200' : ''}  ${selectedTimeSlot?.time === item.time ? 'bg-accent' : changeColor ? 'bg-gray-200' : 'bg-background'}`}>
+            <View className=" items-center justify-center">
                <Text
-                  className={`py-1 text-center font-medium  ${selectedTimeSlot?.time === item.time ? 'font-semibold text-white' : 'text-slate-600'}`}>
+                  className={`py-1 text-center ${selectedTimeSlot?.time === item.time ? 'font-semibold text-white' : 'text-slate-600 dark:text-white'}`}>
                   {item.time}
                </Text>
             </View>

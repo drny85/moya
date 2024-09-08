@@ -12,8 +12,8 @@ import {
 
 import { Text } from '../nativewindui/Text';
 
-import { WeekDay } from '~/types/typings';
 import { generateWeek } from '~/utils/generateWeek';
+import { WeekDay } from '~/shared/types';
 
 const { width } = Dimensions.get('window');
 
@@ -86,9 +86,7 @@ const DatePicker: React.FC = () => {
 
    return (
       <View style={styles.container}>
-         <Text variant="heading" className="py-2 text-center">
-            {currentMonthTitle}
-         </Text>
+         <Text className="py-2 text-center font-roboto-bold">{currentMonthTitle}</Text>
          <Animated.View
             style={[
                styles.weekContainer,

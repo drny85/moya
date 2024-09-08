@@ -8,7 +8,7 @@ import { useNotifications } from '~/hooks/useNotification';
 import { useColorScheme } from '~/lib/useColorScheme';
 
 export default function BarberTabLayout() {
-   const { colors } = useColorScheme();
+   const { colors, isDarkColorScheme } = useColorScheme();
 
    useAppointments();
    useNotifications();
@@ -17,7 +17,7 @@ export default function BarberTabLayout() {
       <Tabs
          screenOptions={{
             headerShown: false,
-            tabBarActiveTintColor: colors.primary,
+            tabBarActiveTintColor: isDarkColorScheme ? 'orange' : colors.primary,
             tabBarInactiveTintColor: colors.accent,
             tabBarStyle: { backgroundColor: colors.background },
             headerStyle: {

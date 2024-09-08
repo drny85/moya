@@ -28,17 +28,17 @@ const ReviewCard: React.FC<Review> = ({
    };
 
    return (
-      <View className="rounded-lg bg-card p-3 shadow-sm shadow-slate-400">
+      <View className="rounded-lg bg-card p-3 shadow-sm ">
          <View style={styles.header}>
             <Image source={{ uri: profileImage }} style={styles.profileImage} />
             <View>
                <Text variant={'title3'}>{name}</Text>
-               <Text className="text-sm text-muted">{date}</Text>
+               <Text className="text-sm text-muted dark:text-white">{date}</Text>
             </View>
          </View>
          <View className="mb-2 flex-row gap-1">{renderStars(rating)}</View>
          {reviewTitle && <Text>{`“${reviewTitle}”`}</Text>}
-         {reviewText && <Text className="mb-2 text-sm">{reviewText}</Text>}
+         {reviewText && <Text className="mb-2 text-sm dark:text-white">{reviewText}</Text>}
       </View>
    );
 };

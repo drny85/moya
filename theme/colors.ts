@@ -25,13 +25,13 @@ const IOS_SYSTEM_COLORS = {
       grey3: 'rgb(70, 70, 73)',
       grey2: 'rgb(99, 99, 102)',
       grey: 'rgb(142, 142, 147)',
-      background: '#000814',
+      background: '#143642',
       foreground: 'rgb(255, 255, 255)',
       root: 'rgb(0, 0, 0)',
-      card: '#2b2d42',
+      card: '#3d314a',
       destructive: 'rgb(254, 67, 54)',
-      primary: '#d90429',
-      accent: '#072ac8',
+      primary: '#583101',
+      accent: '#f2f4f3',
    },
 } as const;
 
@@ -65,8 +65,8 @@ const ANDROID_COLORS = {
       root: 'rgb(0, 0, 0)',
       card: '#2b2d42',
       destructive: 'rgb(147, 0, 10)',
-      primary: '#d90429',
-      accent: '#072ac8',
+      primary: '#583101',
+      accent: '#f2f4f3',
    },
 } as const;
 

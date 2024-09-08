@@ -22,11 +22,13 @@ const ReviewsList = ({ barberId }: Props) => {
    if (!data.length)
       return (
          <View>
-            <Text className="mt-10 text-center text-lg text-muted">No reviews yet</Text>
+            <Text className="mt-10 text-center text-lg text-muted dark:text-white">
+               No reviews yet
+            </Text>
          </View>
       );
    return (
-      <ScrollView style={styles.container} contentContainerClassName="bg-background mt-1 gap-2">
+      <ScrollView style={styles.container} contentContainerClassName="mt-1 gap-2">
          {data
             .sort((a, b) => (a.date < b.date ? 1 : -1))
             .map((review) => (
@@ -44,7 +46,6 @@ const ReviewsList = ({ barberId }: Props) => {
 const styles = StyleSheet.create({
    container: {
       flex: 1,
-      backgroundColor: '#F0F0F0',
    },
 });
 

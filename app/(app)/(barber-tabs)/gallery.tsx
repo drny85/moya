@@ -3,7 +3,7 @@ import { BottomSheetTextInput, TouchableOpacity } from '@gorhom/bottom-sheet';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import { deleteObject, ref } from 'firebase/storage';
 import { useEffect, useRef, useState } from 'react';
-import { Alert, Text, View } from 'react-native';
+import { Alert, View } from 'react-native';
 import { addNewService, updateService } from '~/actions/services';
 import { updateUser } from '~/actions/users';
 import ServicePicker from '~/components/Appointment/ServicePicker';
@@ -12,6 +12,7 @@ import { Container } from '~/components/Container';
 import PhotoGallery from '~/components/Gallery';
 import IconImages from '~/components/IconImages';
 import { Sheet, useSheetRef } from '~/components/nativewindui/Sheet';
+import { Text } from '~/components/nativewindui/Text';
 import ReviewsList from '~/components/ReviewsLIst';
 import Stepper from '~/components/Stepper';
 import UploadPhoto from '~/components/UploadPhoto';
@@ -170,9 +171,13 @@ const GalleryReviews = () => {
                values={VALUES}
                fontStyle={{ fontSize: 16, color: isDarkColorScheme ? '#ffffff' : '#000000' }}
                tintColor={colors.accent}
-               activeFontStyle={{ color: '#ffffff', fontWeight: '700', fontSize: 18 }}
+               activeFontStyle={{
+                  color: isDarkColorScheme ? '#212121' : '#ffffff',
+                  fontWeight: '700',
+                  fontSize: 18,
+               }}
                style={{
-                  backgroundColor: colors.background,
+                  backgroundColor: colors.card,
                   height: 40,
                   width: '80%',
                   alignSelf: 'center',

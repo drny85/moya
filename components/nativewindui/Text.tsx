@@ -11,10 +11,10 @@ const textVariants = cva('text-foreground', {
    variants: {
       variant: {
          largeTitle: 'text-4xl font-raleway-bold',
-         title1: 'text-2xl font-raleway',
-         title2: 'text-[22px] leading-7 font-raleway',
-         title3: 'text-xl font-raleway',
-         heading: 'text-[17px] leading-6 font-semibold',
+         title1: 'text-2xl font-raleway-bold',
+         title2: 'text-[22px] leading-7 font-raleway-bold',
+         title3: 'text-xl font-raleway-bold',
+         heading: 'text-[17px] leading-6 font-raleway-bold',
          body: 'text-[17px] leading-6 font-roboto',
          callout: 'text-base',
          subhead: 'text-[15px] leading-6',

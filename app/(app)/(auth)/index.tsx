@@ -1,10 +1,11 @@
 import { useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import LoginForm from '~/components/Forms/LoginForm';
 import SignupForm from '~/components/Forms/SignupForm';
 import KeyboardScreen from '~/components/KeyboardScreen';
 import { ActivityIndicator } from '~/components/nativewindui/ActivityIndicator';
+import { Text } from '~/components/nativewindui/Text';
 import { useAuth } from '~/providers/AuthContext';
 
 type Props = {
@@ -22,7 +23,9 @@ const LoginScreen = () => {
 
    return (
       <KeyboardScreen style={styles.container}>
-         <Text style={styles.welcomeText}>Welcome</Text>
+         <Text className="mb-3 text-center" variant={'title1'}>
+            Welcome
+         </Text>
          <View style={styles.authSwitch}>
             <TouchableOpacity
                onPress={() => setIsSignUp(false)}
@@ -48,17 +51,10 @@ export default LoginScreen;
 const styles = StyleSheet.create({
    container: {
       flex: 1,
-
       justifyContent: 'center',
       paddingHorizontal: 30,
-      backgroundColor: '#FFF',
    },
-   welcomeText: {
-      fontSize: 24,
-      fontWeight: 'bold',
-      textAlign: 'center',
-      marginBottom: 30,
-   },
+
    authSwitch: {
       flexDirection: 'row',
       justifyContent: 'center',
@@ -76,7 +72,7 @@ const styles = StyleSheet.create({
    },
    activeTabText: {
       fontWeight: 'bold',
-      fontSize: 16,
+      fontSize: 18,
    },
    inactiveTabText: {
       color: '#888',
@@ -88,6 +84,7 @@ const styles = StyleSheet.create({
       borderRadius: 5,
       padding: 15,
       marginBottom: 20,
+      fontFamily: 'Roboto',
    },
    signInButton: {
       backgroundColor: '#F9A825',
@@ -97,7 +94,6 @@ const styles = StyleSheet.create({
       marginBottom: 20,
    },
    signInButtonText: {
-      color: '#FFF',
       fontSize: 16,
       fontWeight: 'bold',
    },
@@ -120,7 +116,6 @@ const styles = StyleSheet.create({
       marginHorizontal: 5,
    },
    socialButtonText: {
-      color: '#FFF',
       fontWeight: 'bold',
    },
 });

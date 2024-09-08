@@ -233,7 +233,7 @@ const ActionButtons = ({ appointment }: { appointment: Appointment }) => {
          <Button
             style={{
                paddingVertical: 1,
-               backgroundColor: appointment.status === 'cancelled' ? 'red' : colors.accent,
+               backgroundColor: appointment.status === 'cancelled' ? 'red' : colors.primary,
             }}
             onPress={handleActions}
             title={

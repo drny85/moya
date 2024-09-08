@@ -14,9 +14,20 @@ import { useAuth } from '~/providers/AuthContext';
 import { useAppointmentStore } from '~/providers/useAppointmentStore';
 import { COLORS } from '~/theme/colors';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import { useLocation } from '~/hooks/useLocation';
+import { getDistanceFromLatLonInMeters } from '~/utils/getDistanceBetweenLocations';
+import { COORDS } from '~/constants';
 
 const Home = () => {
    const { user } = useAuth();
+   const { location, loading } = useLocation();
+   const distance =
+      location &&
+      !loading &&
+      getDistanceFromLatLonInMeters(COORDS, {
+         latitude: location?.coords.latitude,
+         longitude: location?.coords.longitude,
+      });
 
    const apppoitments = useAppointmentStore((state) =>
       state.appointments.filter((a) => a.customer.id === user?.id)
@@ -39,9 +50,16 @@ const Home = () => {
                      className="absolute bottom-0 left-0 right-0 z-10 gap-1 overflow-hidden rounded-md  px-2 py-1"
                      intensity={40}>
                      <View>
-                        <Text variant={'title3'}>Moya Barber Shop</Text>
-                        <Text className="font-semibold text-slate-500">1420 Clay Ave</Text>
-                        <Text className="text-slate-500">Bronx, NY 10456</Text>
+                        <View className="flex-row items-center justify-between">
+                           <Text variant={'title3'}>Moya Barber Shop</Text>
+                           {distance && <Text>{distance.toFixed(1)} miles</Text>}
+                        </View>
+                        <Text className=" text-sm text-slate-500 dark:text-white">
+                           1420 Clay Ave
+                        </Text>
+                        <Text className="text-sm text-slate-500 dark:text-white">
+                           Bronx, NY 10456
+                        </Text>
                      </View>
                   </BlurView>
                </>

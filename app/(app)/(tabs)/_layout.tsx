@@ -9,7 +9,7 @@ import { useNotifications } from '~/hooks/useNotification';
 import { useColorScheme } from '~/lib/useColorScheme';
 
 export default function TabLayout() {
-   const { colors } = useColorScheme();
+   const { colors, isDarkColorScheme } = useColorScheme();
    useNotifications();
    useBarbers();
    useAppointments();
@@ -17,7 +17,7 @@ export default function TabLayout() {
    return (
       <Tabs
          screenOptions={{
-            tabBarActiveTintColor: colors.primary,
+            tabBarActiveTintColor: isDarkColorScheme ? 'orange' : colors.primary,
             tabBarInactiveTintColor: colors.accent,
             tabBarStyle: { backgroundColor: colors.background },
             headerStyle: {

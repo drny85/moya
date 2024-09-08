@@ -1,5 +1,5 @@
 import { Dimensions } from 'react-native';
-import { IconImageType, Schedule, Service } from '~/shared/types';
+import { IconImageType, Schedule } from '~/shared/types';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -11,6 +11,11 @@ export const SIZES = {
 export const SITE_URL = 'https://moya-site.vercel.app';
 
 export const MAXIMUM_IMAGES_UPLOAD = 10;
+
+export const COORDS = {
+   latitude: 40.83728,
+   longitude: -73.90757,
+};
 
 export const DEFAULT_SCHEDULE: Schedule = {
    Sun: {
