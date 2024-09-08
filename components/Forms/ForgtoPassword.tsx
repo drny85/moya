@@ -3,7 +3,6 @@ import { sendPasswordResetEmail } from 'firebase/auth';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { TouchableOpacity, View } from 'react-native';
-import { KeyboardAvoidingScrollView } from 'react-native-keyboard-avoiding-scroll-view';
 import { z } from 'zod';
 import { Button } from '~/components/Button';
 
@@ -12,6 +11,7 @@ import { auth } from '~/firebase';
 import { toastAlert } from '~/lib/toast';
 import { Text } from '../nativewindui/Text';
 import { Feather } from '@expo/vector-icons';
+import KeyboardScreen from '../KeyboardScreen';
 
 const schema = z.object({
    email: z.string().email({ message: 'Invalid email address' }),
@@ -43,7 +43,7 @@ const ForgotPassword = ({ onPress }: { onPress: () => void }) => {
       }
    };
    return (
-      <KeyboardAvoidingScrollView contentContainerClassName="flex-1">
+      <KeyboardScreen>
          <TouchableOpacity className="flex-row items-center gap-1" onPress={onPress}>
             <Feather name="chevron-left" size={24} />
             <Text className="text-muted">Back</Text>
@@ -59,7 +59,7 @@ const ForgotPassword = ({ onPress }: { onPress: () => void }) => {
 
             <Button title="Get Reset Email" onPress={handleSubmit(onSubmit)} />
          </View>
-      </KeyboardAvoidingScrollView>
+      </KeyboardScreen>
    );
 };
 
