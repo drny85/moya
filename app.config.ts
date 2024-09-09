@@ -116,6 +116,7 @@ const config: ExpoConfig = {
    runtimeVersion: {
       policy: 'appVersion',
    },
+   owner: 'drny85',
 };
 
 export default config;
