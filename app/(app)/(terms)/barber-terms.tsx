@@ -10,7 +10,7 @@ const BarberTermsOfUse: React.FC = () => {
    return (
       <Container>
          <BackButton onPress={() => router.back()} />
-         <ScrollView style={styles.container} contentContainerClassName="mb-4">
+         <ScrollView className="flex-1 bg-background p-2" contentContainerClassName="mb-4">
             <Text style={styles.title}>Terms of Use</Text>
 
             <Text style={styles.sectionTitle}>1. Introduction</Text>

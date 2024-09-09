@@ -1,17 +1,16 @@
-import { View, TouchableOpacity, ViewStyle } from 'react-native';
-import React, { useEffect } from 'react';
-import { customMapStyle } from '~/lib/customMapStyle';
-import MapView, { Marker } from 'react-native-maps';
-import { router } from 'expo-router';
 import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
+import { Image, ImageBackground } from 'expo-image';
+import { router } from 'expo-router';
+import React, { useEffect } from 'react';
+import { TouchableOpacity, View, ViewStyle } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { getDistanceFromLatLonInMeters } from '~/utils/getDistanceBetweenLocations';
-import { useLocation } from '~/hooks/useLocation';
-import { Text } from './nativewindui/Text';
-import { Image } from 'expo-image';
-import { useAuth } from '~/providers/AuthContext';
 import { COORDS } from '~/constants';
+import { useLocation } from '~/hooks/useLocation';
+import { customMapStyle } from '~/lib/customMapStyle';
 import { useColorScheme } from '~/lib/useColorScheme';
+import { useAuth } from '~/providers/AuthContext';
+import { Text } from './nativewindui/Text';
 
 type Props = {
    shouldGoBack: boolean;
@@ -41,16 +40,10 @@ const MapHeader = ({ shouldGoBack, containerStyle }: Props) => {
 
    return (
       <View style={[{ flex: 0.5 }, containerStyle]}>
-         {location && (
+         {location ? (
             <MapView
                ref={mapRef}
                customMapStyle={customMapStyle}
-               // initialCamera={{
-               //    heading: 60,
-               //    pitch: 50,
-               //    altitude: 100,
-               //    center: COORDS,
-               // }}
                style={{ flex: 1 }}
                region={{
                   ...COORDS,
@@ -69,6 +62,11 @@ const MapHeader = ({ shouldGoBack, containerStyle }: Props) => {
                   title="Moya Barber-Shop"
                />
             </MapView>
+         ) : (
+            <ImageBackground
+               source={require('~/assets/images/banner.png')}
+               style={{ width: '100%', height: '100%' }}
+            />
          )}
          <View
             style={{

@@ -1,15 +1,16 @@
 import React from 'react';
-import { ScrollView, Text, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { Container } from '~/components/Container';
 import Constants from 'expo-constants';
 import { BackButton } from '~/components/BackButton';
 import { router } from 'expo-router';
+import { Text } from '~/components/nativewindui/Text';
 
 const CustomerPrivacyPolicy: React.FC = () => {
    return (
       <Container>
          <BackButton onPress={() => router.back()} />
-         <ScrollView style={styles.container}>
+         <ScrollView className="flex-1 bg-background p-2">
             <Text style={styles.title}>Privacy Policy</Text>
 
             <Text style={styles.sectionTitle}>1. Introduction</Text>

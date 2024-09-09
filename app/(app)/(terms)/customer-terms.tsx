@@ -1,15 +1,16 @@
 import { router } from 'expo-router';
 import React from 'react';
-import { ScrollView, Text, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { BackButton } from '~/components/BackButton';
 import { Container } from '~/components/Container';
 import Constants from 'expo-constants';
+import { Text } from '~/components/nativewindui/Text';
 
 const CustomerTermsOfUse: React.FC = () => {
    return (
       <Container>
          <BackButton onPress={router.back} />
-         <ScrollView style={styles.container}>
+         <ScrollView className="flex-1 bg-background p-2">
             <Text style={styles.title}>Terms of Use</Text>
 
             <Text style={styles.sectionTitle}>1. Introduction</Text>
@@ -78,7 +79,8 @@ const CustomerTermsOfUse: React.FC = () => {
 
             <Text style={styles.sectionTitle}>10. Contact Us</Text>
             <Text style={styles.text}>
-               If you have any questions about these terms, please contact us at [Support Email].
+               If you have any questions about these terms, please contact us at
+               melendez@robertdev.net.
             </Text>
             <View className="h-10" />
          </ScrollView>
