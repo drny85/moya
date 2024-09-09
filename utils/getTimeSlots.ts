@@ -23,10 +23,6 @@ export const generateAvailableTimeSlots = (
    const isToday = currentDate.toDateString() === now.toDateString();
 
    // Parse startTime and endTime into 24-hour format
-   const [startHoursToday, startMinutesToday] = isToday
-      ? [now.getHours(), now.getMinutes()]
-      : parseTime12Hour(startTime);
-
    const [startHoursDefault, startMinutesDefault] = parseTime12Hour(startTime);
    const [endHours, endMinutes] = parseTime12Hour(endTime);
 
@@ -34,16 +30,26 @@ export const generateAvailableTimeSlots = (
    const [lunchStartHours, lunchStartMinutes] = parseTime12Hour(lunchBreak.start);
    const [lunchEndHours, lunchEndMinutes] = parseTime12Hour(lunchBreak.end);
 
-   // Initialize startHours and startMinutes
-   let startHours = isToday ? startHoursToday : startHoursDefault;
-   let startMinutes = isToday ? startMinutesToday : startMinutesDefault;
+   // Initialize startHours and startMinutes with default start time
+   let startHours = startHoursDefault;
+   let startMinutes = startMinutesDefault;
 
-   // Adjust startMinutes to the next increment if needed
-   if (startMinutes % incrementMinutes !== 0) {
-      startMinutes = Math.ceil(startMinutes / incrementMinutes) * incrementMinutes;
-      if (startMinutes >= 60) {
-         startMinutes %= 60;
-         startHours += 1;
+   // Adjust startHours and startMinutes if today and current time is after the startTime
+   if (
+      isToday &&
+      (now.getHours() > startHoursDefault ||
+         (now.getHours() === startHoursDefault && now.getMinutes() > startMinutesDefault))
+   ) {
+      startHours = now.getHours();
+      startMinutes = now.getMinutes();
+
+      // Adjust startMinutes to the next increment if needed
+      if (startMinutes % incrementMinutes !== 0) {
+         startMinutes = Math.ceil(startMinutes / incrementMinutes) * incrementMinutes;
+         if (startMinutes >= 60) {
+            startMinutes %= 60;
+            startHours += 1;
+         }
       }
    }
 
@@ -71,8 +77,8 @@ export const generateAvailableTimeSlots = (
    ) {
       if (
          !isToday ||
-         startHours > startHoursToday ||
-         (startHours === startHoursToday && startMinutes >= startMinutesToday)
+         startHours > now.getHours() ||
+         (startHours === now.getHours() && startMinutes >= now.getMinutes())
       ) {
          const timeSlot = formatTime12Hour(startHours, startMinutes);
 
