@@ -13,6 +13,7 @@ import { shareBarberLink } from '~/utils/shareBarberLink';
 import { router } from 'expo-router';
 import { ImageBackground } from 'expo-image';
 import { SIZES } from '~/constants';
+import { useUser } from '~/hooks/useUser';
 
 type Props = {
    barber: Barber;
@@ -22,16 +23,18 @@ type Props = {
 
 const BarberImageHeader = ({ barber, onPressBack, showBookingButton }: Props) => {
    const { top } = useSafeAreaInsets();
+   useUser();
    const { user } = useAuth();
    const { reviews } = useReviews();
    const barberReviews = reviews.filter((r) => r.barberId === barber.id);
    const barberRating = barberReviews.reduce((acc, curr) => acc + curr.rating, 0) / reviews.length;
 
-   const toggleFavorite = () => {
+   const toggleFavorite = async () => {
       if (!user || !barber) return;
       if (user.isBarber) return;
+
       try {
-         updateUser({ ...user, favoriteBarber: user.favoriteBarber ? null : barber });
+         await updateUser({ ...user, favoriteBarber: barber.id });
       } catch (error) {
          console.log(error);
       }
@@ -63,7 +66,7 @@ const BarberImageHeader = ({ barber, onPressBack, showBookingButton }: Props) =>
             tint="prominent"
             className="absolute bottom-0 left-0 right-0 z-10 gap-1 overflow-hidden rounded-3xl p-4">
             <View className="mb-2 flex-row items-center justify-between gap-3">
-               <View className="flex-row items-center justify-between gap-x-2">
+               <View className="flex-row items-center justify-between gap-2">
                   <Text variant="title2" className=" text-slate-500">
                      {barber.name}
                   </Text>
@@ -73,7 +76,7 @@ const BarberImageHeader = ({ barber, onPressBack, showBookingButton }: Props) =>
                         name={
                            !user?.isBarber &&
                            user?.favoriteBarber &&
-                           user.favoriteBarber.id === barber.id
+                           user.favoriteBarber === barber.id
                               ? 'heart'
                               : 'heart-o'
                         }

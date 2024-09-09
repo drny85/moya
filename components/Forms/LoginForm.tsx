@@ -29,9 +29,8 @@ const LoginForm: React.FC = () => {
    const { signIn } = useAuth();
 
    const onSubmit = async (data: LoginFormData) => {
-      console.log('Login Data:', data);
       try {
-         signIn(data.email, data.password);
+         await signIn(data.email, data.password);
       } catch (error) {
          console.log(error);
          const err = error as Error;
@@ -44,8 +43,11 @@ const LoginForm: React.FC = () => {
          <TextInput
             name="email"
             control={control}
+            autoFocus
             label="Email Address"
             keyboardType="email-address"
+            enablesReturnKeyAutomatically
+            autoComplete="off"
             placeholder="john.smith@email.com"
          />
          <View>

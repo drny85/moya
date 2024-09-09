@@ -1,3 +1,4 @@
+import { isPast } from 'date-fns';
 import { BlurView } from 'expo-blur';
 import { router } from 'expo-router';
 import React from 'react';
@@ -6,21 +7,25 @@ import AppointmentCard from '~/components/Appointment/AppointmentCard';
 import BarberCard from '~/components/BarberCard';
 import { Button } from '~/components/Button';
 import MapHeader from '~/components/MapHeader';
-import { isPast } from 'date-fns';
 import { Text } from '~/components/nativewindui/Text';
 import ParallaxScrollView from '~/components/ParallaxScrollView';
 
+import { COORDS } from '~/constants';
+import { useBarber } from '~/hooks/useBarber';
+import { useLocation } from '~/hooks/useLocation';
 import { useAuth } from '~/providers/AuthContext';
 import { useAppointmentStore } from '~/providers/useAppointmentStore';
+import { useBarbersStore } from '~/providers/useBarbersStore';
 import { COLORS } from '~/theme/colors';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import { useLocation } from '~/hooks/useLocation';
 import { getDistanceFromLatLonInMeters } from '~/utils/getDistanceBetweenLocations';
-import { COORDS } from '~/constants';
 
 const Home = () => {
    const { user } = useAuth();
    const { location, loading } = useLocation();
+   const favoriteBarber =
+      !user?.isBarber && user?.favoriteBarber ? user?.favoriteBarber : undefined;
+   const { getBarberById } = useBarbersStore();
+   const barber = getBarberById(favoriteBarber!);
    const distance =
       location &&
       !loading &&
@@ -88,7 +93,7 @@ const Home = () => {
             <View className="gap-2 rounded-l bg-card p-2 shadow-sm">
                <Text variant={'title2'}>My Barber</Text>
                {!user?.isBarber && user?.favoriteBarber ? (
-                  <BarberCard barber={user.favoriteBarber} index={0} isOwner={false} />
+                  <BarberCard barber={barber!} index={0} isOwner={false} />
                ) : (
                   <View className="gap-3">
                      <Text className="font-medium text-muted">No Barber Available</Text>

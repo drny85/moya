@@ -99,7 +99,7 @@ const BarberDetails = () => {
          <BarberImageHeader barber={barber} onPressBack={router.back} showBookingButton={true} />
          <SegmentedControl
             values={VALUES}
-            fontStyle={{ fontSize: 16, color: '#ffffff' }}
+            fontStyle={{ fontSize: 16, color: isDarkColorScheme ? '#ffffff' : '#212121' }}
             tintColor={colors.accent}
             activeFontStyle={{
                color: !isDarkColorScheme ? '#ffffff' : '#212121',
@@ -107,7 +107,7 @@ const BarberDetails = () => {
                fontSize: 18,
             }}
             style={{
-               backgroundColor: colors.primary,
+               backgroundColor: colors.card,
                height: 40,
                width: '80%',
                alignSelf: 'center',

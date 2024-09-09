@@ -44,7 +44,7 @@ export type AppUser = {
 } & (
    | {
         isBarber: false;
-        favoriteBarber: Barber | null;
+        favoriteBarber: string | null;
      }
    | (Barber & { isBarber: true })
 );

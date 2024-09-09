@@ -4,13 +4,13 @@ import { router } from 'expo-router';
 import { TouchableOpacity, View } from 'react-native';
 import Animated, { SlideInLeft } from 'react-native-reanimated';
 
+import { ReactNode } from 'react';
+import { useReviews } from '~/hooks/useReviews';
+import { useColorScheme } from '~/lib/useColorScheme';
+import { Barber } from '~/shared/types';
 import { Button } from './Button';
 import CommunicationButtons from './CommunicationButtons';
 import { Text } from './nativewindui/Text';
-import { Barber } from '~/shared/types';
-import { useReviews } from '~/hooks/useReviews';
-import { ReactNode } from 'react';
-import { useColorScheme } from '~/lib/useColorScheme';
 
 type Props = {
    barber: Barber;
@@ -33,6 +33,8 @@ const BarberCard = ({ barber, index, isOwner, activeNode, disabled = false }: Pr
    const { isDarkColorScheme } = useColorScheme();
    const barberReviews = reviews.filter((r) => r.barberId === barber.id);
    const barberRating = barberReviews.reduce((acc, curr) => acc + curr.rating, 0) / reviews.length;
+
+   if (!barber) return null;
    return (
       <Animated.View entering={SlideInLeft.delay(index * 200).duration(600)}>
          <TouchableOpacity
