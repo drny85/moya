@@ -62,12 +62,15 @@ const AppointmentCard = ({ appointmentId, onPress, actionsButton }: Props) => {
                      </Text>
                   ))}
                </View>
+               <Text className="text-muted dark:text-white">
+                  Price: ${getAppointmentPrice(item.services)}
+               </Text>
                <View className="flex-row items-center gap-2">
                   <Text className="text-sm text-muted dark:text-white">At {item.startTime}</Text>
-                  <View className="h-1 w-1 rounded-full bg-muted" />
+                  <View className="h-1 w-1 rounded-full bg-muted dark:bg-slate-300" />
                   <Text className="text-sm text-muted dark:text-white">{duration} mins</Text>
                </View>
-               <Text className="text-sm text-muted">
+               <Text className="text-sm text-muted dark:text-white">
                   Price: ${getAppointmentPrice(item.services)}
                </Text>
                <Text className="text-sm text-muted dark:text-white">

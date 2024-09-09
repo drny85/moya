@@ -21,7 +21,7 @@ export function useProtectedRoute(user: AppUser | null) {
          !inAuthGroup
       ) {
          // Redirect to the sign-in page.
-         router.replace('/(auth)');
+         router.replace('/(auth)/login');
       } else if (user && inAuthGroup && !user.isBarber) {
          // Redirect away from the sign-in page.
          router.replace('/(tabs)');

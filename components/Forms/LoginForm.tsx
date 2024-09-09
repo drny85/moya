@@ -58,14 +58,14 @@ const LoginForm: React.FC = () => {
                secureTextEntry={!showPassword}
             />
             <TouchableOpacity className="mb-3" onPress={() => setShowPassword((prev) => !prev)}>
-               <Text className="@ self-end text-muted">
+               <Text className="@ self-end text-muted dark:text-slate-300">
                   {showPassword ? 'hide password' : 'show password'}
                </Text>
             </TouchableOpacity>
          </View>
          <Button title="Login" onPress={handleSubmit(onSubmit)} />
          <TouchableOpacity className="mt-8" onPress={() => bottomSheetRef.current?.present()}>
-            <Text className="text-center text-muted">Forgot Password?</Text>
+            <Text className="text-center text-muted dark:text-slate-300">Forgot Password?</Text>
          </TouchableOpacity>
          {/* <Sheet snapPoints={['90%']} ref={forgotPasswordRef}>
             <ForgotPassword />

@@ -1,20 +1,19 @@
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 import { ThemeProvider as NavThemeProvider } from '@react-navigation/native';
 import 'expo-dev-client';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import '~/global.css';
 import { useFonts } from 'expo-font';
-import { ActivityIndicator } from '~/components/nativewindui/ActivityIndicator';
+import { Stack } from 'expo-router';
+import * as SplashScreen from 'expo-splash-screen';
+import { StatusBar } from 'expo-status-bar';
+import { useEffect } from 'react';
 import { ThemeToggle } from '~/components/nativewindui/ThemeToggle';
+import { Fonts } from '~/constants/Fonts';
+import '~/global.css';
 import { useProtectedRoute } from '~/hooks/useProtectedRoutes';
 import { useUser } from '~/hooks/useUser';
 import { useColorScheme, useInitialAndroidBarSync } from '~/lib/useColorScheme';
 import { useAuth } from '~/providers/AuthContext';
 import { NAV_THEME } from '~/theme';
-import { Fonts } from '~/constants/Fonts';
-import { useEffect } from 'react';
-import * as SplashScreen from 'expo-splash-screen';
 SplashScreen.preventAutoHideAsync();
 export {
    // Catch any errors thrown by the Layout component.
@@ -31,12 +30,12 @@ export default function RootLayout() {
    const { mounted } = useProtectedRoute(user);
 
    useEffect(() => {
-      if (loaded || error) {
+      if (loaded && !error && mounted) {
          SplashScreen.hideAsync();
       }
    }, [loaded, error]);
 
-   if ((!loaded && !error) || !mounted) {
+   if (!loaded && !error) {
       return null;
    }
 
@@ -56,7 +55,7 @@ export default function RootLayout() {
                <Stack screenOptions={{ ...SCREEN_OPTIONS }}>
                   <Stack.Screen name="(tabs)" options={TABS_OPTIONS} />
                   <Stack.Screen name="(barber-tabs)" options={TABS_OPTIONS} />
-                  <Stack.Screen name="(auth)/index" options={TABS_OPTIONS} />
+                  <Stack.Screen name="(auth)/login" options={TABS_OPTIONS} />
                   <Stack.Screen name="(terms)" options={TABS_OPTIONS} />
                   <Stack.Screen name="(modals)" options={TABS_OPTIONS} />
                </Stack>

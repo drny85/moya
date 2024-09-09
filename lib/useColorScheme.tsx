@@ -36,6 +36,7 @@ function useColorScheme() {
  */
 function useInitialAndroidBarSync() {
    const { colorScheme } = useColorScheme();
+
    React.useEffect(() => {
       if (Platform.OS !== 'android') return;
       setNavigationBar(colorScheme).catch((error) => {

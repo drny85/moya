@@ -35,7 +35,7 @@ const Stepper: React.FC<StepperProps> = ({
    };
 
    return (
-      <View className="flex-row items-center gap-x-3">
+      <View className="flex-row items-center gap-2">
          <TouchableOpacity
             onPress={decrement}
             className="h-12 w-12 items-center justify-center rounded-full bg-card  shadow-sm">

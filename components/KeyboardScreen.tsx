@@ -3,7 +3,7 @@ import { useKeyboardHandler } from 'react-native-keyboard-controller';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import { useColorScheme } from '~/lib/useColorScheme';
 
-const PADDING = 20;
+const PADDING = 0;
 
 type Props = {
    children: React.ReactNode;

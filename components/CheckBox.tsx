@@ -1,7 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Controller } from 'react-hook-form';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
+import { Text } from '~/components/nativewindui/Text';
+import { useColorScheme } from '~/lib/useColorScheme';
 
 type CheckBoxProps = {
    name: string;
@@ -11,6 +13,7 @@ type CheckBoxProps = {
 };
 
 const CheckBox: React.FC<CheckBoxProps> = ({ name, control, label, rules }) => {
+   const { isDarkColorScheme } = useColorScheme();
    return (
       <Controller
          control={control}
@@ -19,9 +22,19 @@ const CheckBox: React.FC<CheckBoxProps> = ({ name, control, label, rules }) => {
          render={({ field: { value, onChange }, fieldState: { error } }) => (
             <View style={styles.container}>
                <TouchableOpacity style={{ marginRight: 8 }} onPress={() => onChange(!value)}>
-                  {value && <AntDesign name="checkcircle" size={24} color="black" />}
+                  {value && (
+                     <AntDesign
+                        name="checkcircle"
+                        size={24}
+                        color={isDarkColorScheme ? '#ffffff' : '#212121'}
+                     />
+                  )}
                   {!value && (
-                     <MaterialIcons name="radio-button-unchecked" size={24} color="black" />
+                     <MaterialIcons
+                        name="radio-button-unchecked"
+                        size={24}
+                        color={isDarkColorScheme ? '#ffffff' : '#212121'}
+                     />
                   )}
                </TouchableOpacity>
                <Text style={styles.label}>{label}</Text>

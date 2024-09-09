@@ -1,8 +1,9 @@
 import React from 'react';
-import { TextInput as RNTextInput, View, Text, StyleSheet, TextInputProps } from 'react-native';
+import { TextInput as RNTextInput, View, StyleSheet, TextInputProps } from 'react-native';
 import { Controller } from 'react-hook-form';
 import { formatPhone } from '~/utils/formatPhone';
 import { useColorScheme } from '~/lib/useColorScheme';
+import { Text } from '~/components/nativewindui/Text';
 
 type TextInputParams = TextInputProps & {
    name: string;
@@ -23,7 +24,7 @@ const TextInput: React.FC<TextInputParams> = ({
    rules,
    ...others
 }) => {
-   const { colorScheme } = useColorScheme();
+   const { isDarkColorScheme } = useColorScheme();
    return (
       <View style={styles.container}>
          {label && <Text style={styles.label}>{label}</Text>}
@@ -36,7 +37,7 @@ const TextInput: React.FC<TextInputParams> = ({
                   <RNTextInput
                      style={[
                         styles.input,
-                        { color: colorScheme === 'dark' ? '#ffffff' : '#212121' },
+                        { color: isDarkColorScheme ? '#ffffff' : '#212121' },
                         error && styles.errorInput,
                      ]}
                      onBlur={onBlur}
@@ -48,6 +49,7 @@ const TextInput: React.FC<TextInputParams> = ({
                              : onChange
                      }
                      value={value}
+                     placeholderTextColor={'grey'}
                      placeholder={placeholder}
                      secureTextEntry={secureTextEntry}
                      {...others}
@@ -67,14 +69,14 @@ const styles = StyleSheet.create({
    label: {
       marginBottom: 5,
       fontSize: 16,
-      fontWeight: 'bold',
+      fontFamily: 'Raleway-Bold',
    },
    input: {
       height: 50,
       borderColor: '#ccc',
       fontSize: 16,
       borderWidth: 1,
-      borderRadius: 5,
+      borderRadius: 10,
       paddingHorizontal: 10,
    },
    errorInput: {

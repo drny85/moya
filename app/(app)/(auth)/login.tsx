@@ -6,6 +6,7 @@ import SignupForm from '~/components/Forms/SignupForm';
 import KeyboardScreen from '~/components/KeyboardScreen';
 import { ActivityIndicator } from '~/components/nativewindui/ActivityIndicator';
 import { Text } from '~/components/nativewindui/Text';
+import { useColorScheme } from '~/lib/useColorScheme';
 import { useAuth } from '~/providers/AuthContext';
 
 type Props = {
@@ -14,6 +15,7 @@ type Props = {
 const LoginScreen = () => {
    const [isSignUp, setIsSignUp] = useState(false);
    const { loading } = useAuth();
+   const { colors } = useColorScheme();
    const { mode } = useLocalSearchParams<Props>();
    useEffect(() => {
       if (mode === 'register') setIsSignUp(true);
@@ -29,14 +31,22 @@ const LoginScreen = () => {
          <View style={styles.authSwitch}>
             <TouchableOpacity
                onPress={() => setIsSignUp(false)}
-               style={!isSignUp ? styles.activeTab : styles.inactiveTab}>
+               style={
+                  !isSignUp
+                     ? { ...styles.activeTab, borderBottomColor: colors.accent }
+                     : styles.inactiveTab
+               }>
                <Text style={!isSignUp ? styles.activeTabText : styles.inactiveTabText}>
                   Sign in
                </Text>
             </TouchableOpacity>
             <TouchableOpacity
                onPress={() => setIsSignUp(true)}
-               style={isSignUp ? styles.activeTab : styles.inactiveTab}>
+               style={
+                  isSignUp
+                     ? { ...styles.activeTab, borderBottomColor: colors.accent }
+                     : styles.inactiveTab
+               }>
                <Text style={isSignUp ? styles.activeTabText : styles.inactiveTabText}>Sign up</Text>
             </TouchableOpacity>
          </View>
@@ -62,7 +72,6 @@ const styles = StyleSheet.create({
    },
    activeTab: {
       borderBottomWidth: 2,
-      borderBottomColor: '#000',
       paddingBottom: 10,
       marginRight: 20,
    },

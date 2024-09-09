@@ -50,7 +50,7 @@ const ServicePicker = ({ services, isBarber, onPressServiceEdit }: Props) => {
                      key={service.id}
                      className={`mx-2 flex-row items-center justify-between p-2 ${index !== services.length - 1 ? `border-b-hairline border-slate-300` : ''}`}>
                      <View className="flex-1 ">
-                        <Text variant={'title3'}>{service.name}</Text>
+                        <Text variant={'heading'}>{service.name}</Text>
                         <View className="flex-row items-center gap-2">
                            <Text className="text-sm font-bold text-muted dark:text-white">
                               ${service.price}

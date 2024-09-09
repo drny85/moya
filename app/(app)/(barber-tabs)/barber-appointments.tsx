@@ -61,7 +61,11 @@ const BarberAppointments = () => {
             values={VALUES}
             fontStyle={{ fontSize: 16, color: isDarkColorScheme ? 'white' : 'black' }}
             tintColor={colors.accent}
-            activeFontStyle={{ color: '#ffffff', fontWeight: '700', fontSize: 18 }}
+            activeFontStyle={{
+               color: !isDarkColorScheme ? 'white' : 'black',
+               fontWeight: '700',
+               fontSize: 18,
+            }}
             style={{
                backgroundColor: colors.background,
                height: 40,
@@ -75,7 +79,7 @@ const BarberAppointments = () => {
             }}
          />
          {selectedIndex === 1 && (
-            <View className="m-1 min-h-32 bg-card shadow-sm">
+            <View className="m-1 min-h-36 bg-card shadow-sm">
                <WeekSelector
                   schedule={(user?.isBarber && user.schedule) || DEFAULT_SCHEDULE}
                   onPress={(day) => {
@@ -89,7 +93,7 @@ const BarberAppointments = () => {
                ListHeaderComponent={
                   data && data.length > 0 ? (
                      <View>
-                        <Text className="px-4 py-2 text-center font-semibold text-muted">
+                        <Text className="px-4 py-2 text-center font-semibold text-muted dark:text-white">
                            {data.length} Appointments
                         </Text>
                      </View>

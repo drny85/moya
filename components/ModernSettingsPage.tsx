@@ -220,7 +220,7 @@ export default function ModernSettingsPage() {
                   <Text style={styles.rowLabel}>Minutes Interval</Text>
 
                   <View style={styles.rowSpacer} />
-                  <View className="flex-row items-center gap-x-2">
+                  <View className="flex-row items-center gap-2">
                      <TouchableOpacity
                         onPress={() => {
                            if (minutes <= 0) return;
@@ -228,7 +228,7 @@ export default function ModernSettingsPage() {
                            updateUser({ ...user!, minutesInterval: MINUTES_INTERVAL[minutes - 1] });
                         }}
                         disabled={false}>
-                        <Feather name="minus-circle" size={24} color={colors.primary} />
+                        <Feather name="minus-circle" size={24} color={colors.accent} />
                      </TouchableOpacity>
                      <Text className="font-semibold text-muted dark:text-white">
                         {MINUTES_INTERVAL[minutes]} mins

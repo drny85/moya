@@ -49,8 +49,8 @@ const BarberHome = () => {
    if (!appointmentsData) return;
 
    return (
-      <View className="flex-1 bg-card">
-         <View className="flex-1 gap-2">
+      <View className="flex-1 bg-background">
+         <ScrollView className="flex-1 gap-2">
             <View style={{ paddingTop: top }} className="h-1/2 rounded-3xl bg-card p-2 shadow-sm">
                <View className="flex-row items-center justify-between">
                   <Image
@@ -131,7 +131,7 @@ const BarberHome = () => {
                   />
                </View>
             </View>
-         </View>
+         </ScrollView>
       </View>
    );
 

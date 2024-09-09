@@ -11,6 +11,7 @@ import { Button } from '~/components/Button';
 import { Container } from '~/components/Container';
 import PhotoGallery from '~/components/Gallery';
 import IconImages from '~/components/IconImages';
+import MenuItem from '~/components/MenuItem';
 import { Sheet, useSheetRef } from '~/components/nativewindui/Sheet';
 import { Text } from '~/components/nativewindui/Text';
 import ReviewsList from '~/components/ReviewsLIst';
@@ -247,17 +248,18 @@ const GalleryReviews = () => {
                      setEdit(false);
                   }
                }}>
-               <View className="flex-1 p-3">
-                  <View className="flex-row items-center gap-x-8">
+               <View className="mt-4 flex-1 p-3">
+                  <View>
                      <TouchableOpacity
+                        className="flex-row items-center gap-1"
                         onPress={() => {
                            setEdit(false);
                            setServiceToEdit(null);
                            bottomSheetRef.current?.close();
                         }}>
                         <Feather name="chevron-left" size={26} />
+                        <Text className="text-center text-lg">Edit Service</Text>
                      </TouchableOpacity>
-                     <Text className="text-center text-lg">Edit Service</Text>
                   </View>
                   <View className="gap-6">
                      <BottomSheetTextInput
@@ -301,7 +303,7 @@ const GalleryReviews = () => {
 
                         //setServiceToEdit({ ...serviceToEdit!, description: text })
                      />
-                     <View className="flex-row items-center justify-between">
+                     <View className="flex-row items-center justify-between ">
                         <Text className="text-xl font-semibold text-muted">Service Duration:</Text>
                         <Stepper
                            step={5}

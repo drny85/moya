@@ -1,6 +1,6 @@
 import { Stack } from 'expo-router';
 
-const _layout = () => {
+const ModalLayout = () => {
    return (
       <Stack>
          <Stack.Screen name="barber" options={{ headerShown: false }} />
@@ -11,4 +11,4 @@ const _layout = () => {
    );
 };
 
-export default _layout;
+export default ModalLayout;
