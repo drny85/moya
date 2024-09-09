@@ -31,7 +31,7 @@ type Props = {
 const BarberCard = ({ barber, index, isOwner, activeNode, disabled = false }: Props) => {
    const { reviews } = useReviews();
    const { isDarkColorScheme } = useColorScheme();
-   const barberReviews = reviews.filter((r) => r.barberId === barber.id);
+   const barberReviews = reviews.filter((r) => r.barberId === barber?.id);
    const barberRating = barberReviews.reduce((acc, curr) => acc + curr.rating, 0) / reviews.length;
 
    if (!barber) return null;

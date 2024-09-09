@@ -6,6 +6,7 @@ import { Text } from '../nativewindui/Text';
 
 import { useAppointmentFlowStore } from '~/providers/useAppoitmentFlowStore';
 import { Barber } from '~/shared/types';
+import { toastMessage } from '~/lib/toast';
 
 type Props = {
    onPress: () => void;
@@ -38,8 +39,20 @@ const DateTimeAppointmentPicker = ({ onPress, barber }: Props) => {
                iconName="save"
                style={{ paddingHorizontal: 20 }}
                title="Save Appointment"
-               disabled={!selectedDate || !selectedTimeSlot}
-               onPress={onPress}
+               disabled={!selectedDate}
+               onPress={() => {
+                  if (selectedDate && selectedTimeSlot) {
+                     onPress();
+                  }
+                  if (!selectedTimeSlot) {
+                     toastMessage({
+                        preset: 'error',
+                        title: 'Error',
+                        message: 'Please select a time slot',
+                        duration: 2,
+                     });
+                  }
+               }}
             />
          </View>
       </View>

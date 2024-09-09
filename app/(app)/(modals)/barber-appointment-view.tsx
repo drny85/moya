@@ -2,7 +2,7 @@ import { Feather } from '@expo/vector-icons';
 import { addMinutes, format, formatDistanceToNow, isPast, isSameDay } from 'date-fns';
 import { BlurView } from 'expo-blur';
 
-import { router, useLocalSearchParams } from 'expo-router';
+import { Redirect, router, useLocalSearchParams } from 'expo-router';
 import { Alert, ScrollView, TouchableOpacity, View, ImageBackground } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { updateAppointmentInDatabase } from '~/actions/appointments';
@@ -12,6 +12,7 @@ import CommunicationButtons from '~/components/CommunicationButtons';
 
 import { Text } from '~/components/nativewindui/Text';
 import { toastAlert, toastMessage } from '~/lib/toast';
+import { useAuth } from '~/providers/AuthContext';
 import { useAppointmentStore } from '~/providers/useAppointmentStore';
 import { getAppointmentDuration } from '~/utils/getAppointmentDuration';
 import { getAppointmentPrice } from '~/utils/getAppointmentPrice';
@@ -21,6 +22,8 @@ type ParamsProps = {
    appointmentId: string;
 };
 const BarberAppointmentView = () => {
+   const { user } = useAuth();
+
    const { bottom, top } = useSafeAreaInsets();
    const { appointmentId } = useLocalSearchParams<ParamsProps>();
    const { getAppointment } = useAppointmentStore();
@@ -39,6 +42,8 @@ const BarberAppointmentView = () => {
       }
    };
    if (!appointment) return null;
+
+   if (!user?.isBarber) return <Redirect href={'/(app)/(tabs)'} />;
    return (
       <View style={{ flex: 1 }}>
          <ImageBackground
