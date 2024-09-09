@@ -6,6 +6,7 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
+import { Appearance } from 'react-native';
 import { ThemeToggle } from '~/components/nativewindui/ThemeToggle';
 import { Fonts } from '~/constants/Fonts';
 import '~/global.css';
@@ -24,6 +25,7 @@ export default function RootLayout() {
    useInitialAndroidBarSync();
    const [loaded, error] = useFonts(Fonts);
    const { colorScheme, isDarkColorScheme } = useColorScheme();
+   useSchemeListener();
    useUser();
    const { user } = useAuth();
 
@@ -82,3 +84,17 @@ const MODAL_OPTIONS = {
    title: 'Settings',
    headerRight: () => <ThemeToggle />,
 } as const;
+
+const useSchemeListener = () => {
+   const { setColorScheme } = useColorScheme();
+   useEffect(() => {
+      const listener = Appearance.addChangeListener(({ colorScheme }) => {
+         Appearance.setColorScheme(colorScheme);
+         console.log(colorScheme);
+         //setColorScheme(colorScheme)
+      });
+      return () => {
+         listener.remove();
+      };
+   }, []);
+};

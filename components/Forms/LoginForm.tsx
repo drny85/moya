@@ -39,7 +39,7 @@ const LoginForm: React.FC = () => {
    };
 
    return (
-      <View className="mt-3">
+      <View>
          <TextInput
             name="email"
             control={control}

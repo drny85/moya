@@ -6,6 +6,7 @@ export function useProtectedRoute(user: AppUser | null) {
    const segments = useSegments();
    const router = useRouter();
    const [mounted, setMounted] = useState(false);
+
    useEffect(() => {
       setMounted(true);
    }, []);

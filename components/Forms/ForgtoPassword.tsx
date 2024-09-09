@@ -12,6 +12,7 @@ import { toastAlert } from '~/lib/toast';
 import { Text } from '../nativewindui/Text';
 import { Feather } from '@expo/vector-icons';
 import KeyboardScreen from '../KeyboardScreen';
+import { useColorScheme } from '~/lib/useColorScheme';
 
 const schema = z.object({
    email: z.string().email({ message: 'Invalid email address' }),
@@ -20,6 +21,7 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>;
 
 const ForgotPassword = ({ onPress }: { onPress: () => void }) => {
+   const { isDarkColorScheme } = useColorScheme();
    const { control, handleSubmit } = useForm<FormValues>({
       defaultValues: {
          email: '',
@@ -44,9 +46,9 @@ const ForgotPassword = ({ onPress }: { onPress: () => void }) => {
    };
    return (
       <KeyboardScreen>
-         <TouchableOpacity className="flex-row items-center gap-1" onPress={onPress}>
-            <Feather name="chevron-left" size={24} />
-            <Text className="text-muted">Back</Text>
+         <TouchableOpacity className="ml-2 flex-row items-center gap-1" onPress={onPress}>
+            <Feather name="chevron-left" size={24} color={isDarkColorScheme ? 'white' : 'black'} />
+            <Text className="text-muted dark:text-white">Back</Text>
          </TouchableOpacity>
          <View className="w-full flex-1 justify-center p-3">
             <TextInput

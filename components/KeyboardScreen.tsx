@@ -3,7 +3,7 @@ import { useKeyboardHandler } from 'react-native-keyboard-controller';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import { useColorScheme } from '~/lib/useColorScheme';
 
-const PADDING = 0;
+const PADDING = 20;
 
 type Props = {
    children: React.ReactNode;
@@ -11,11 +11,11 @@ type Props = {
 };
 const KeyboardScreen = ({ children, style }: Props) => {
    const { height } = useGradualAnimation();
-   const { colors, colorScheme } = useColorScheme();
-   console.log('colorScheme', colorScheme);
+   const { colors } = useColorScheme();
+
    const animatedStyle = useAnimatedStyle(() => {
       return {
-         height: Math.abs(height.value),
+         height: Math.abs(height.value + PADDING),
          marginBottom: height.value > 0 ? 0 : PADDING,
       };
    });

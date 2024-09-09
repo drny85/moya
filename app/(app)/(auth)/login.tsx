@@ -6,6 +6,7 @@ import SignupForm from '~/components/Forms/SignupForm';
 import KeyboardScreen from '~/components/KeyboardScreen';
 import { ActivityIndicator } from '~/components/nativewindui/ActivityIndicator';
 import { Text } from '~/components/nativewindui/Text';
+import { ThemeToggle } from '~/components/nativewindui/ThemeToggle';
 import { useColorScheme } from '~/lib/useColorScheme';
 import { useAuth } from '~/providers/AuthContext';
 
@@ -25,7 +26,8 @@ const LoginScreen = () => {
 
    return (
       <KeyboardScreen style={styles.container}>
-         <Text className="mb-3 text-center" variant={'title1'}>
+         <ThemeToggle />
+         <Text className="text-center" variant={'title1'}>
             Welcome
          </Text>
          <View style={styles.authSwitch}>
@@ -62,7 +64,8 @@ const styles = StyleSheet.create({
    container: {
       flex: 1,
       justifyContent: 'center',
-      paddingHorizontal: 30,
+      paddingHorizontal: 20,
+      gap: 20,
    },
 
    authSwitch: {
