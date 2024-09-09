@@ -11,7 +11,6 @@ import { Text } from '~/components/nativewindui/Text';
 import ParallaxScrollView from '~/components/ParallaxScrollView';
 
 import { COORDS } from '~/constants';
-import { useBarber } from '~/hooks/useBarber';
 import { useLocation } from '~/hooks/useLocation';
 import { useAuth } from '~/providers/AuthContext';
 import { useAppointmentStore } from '~/providers/useAppointmentStore';
