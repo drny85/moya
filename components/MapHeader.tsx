@@ -11,6 +11,7 @@ import { customMapStyle } from '~/lib/customMapStyle';
 import { useColorScheme } from '~/lib/useColorScheme';
 import { useAuth } from '~/providers/AuthContext';
 import { Text } from './nativewindui/Text';
+import { ActivityIndicator } from './nativewindui/ActivityIndicator';
 
 type Props = {
    shouldGoBack: boolean;
@@ -22,7 +23,7 @@ const MapHeader = ({ shouldGoBack, containerStyle }: Props) => {
    const { isDarkColorScheme } = useColorScheme();
    const { user } = useAuth();
    const { top } = useSafeAreaInsets();
-   const { location } = useLocation();
+   const { location, loading } = useLocation();
 
    useEffect(() => {
       mapRef.current?.animateToRegion({
@@ -37,6 +38,8 @@ const MapHeader = ({ shouldGoBack, containerStyle }: Props) => {
          altitude: 140,
       });
    }, [mapRef]);
+
+   if (loading) return <ActivityIndicator />;
 
    return (
       <View style={[{ flex: 0.5 }, containerStyle]}>

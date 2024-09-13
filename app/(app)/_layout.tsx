@@ -13,7 +13,6 @@ import '~/global.css';
 import { useProtectedRoute } from '~/hooks/useProtectedRoutes';
 import { useUser } from '~/hooks/useUser';
 import { useColorScheme, useInitialAndroidBarSync } from '~/lib/useColorScheme';
-import { useAuth } from '~/providers/AuthContext';
 import { NAV_THEME } from '~/theme';
 SplashScreen.preventAutoHideAsync();
 export {
@@ -27,9 +26,8 @@ export default function RootLayout() {
    const { colorScheme, isDarkColorScheme } = useColorScheme();
    useSchemeListener();
    useUser();
-   const { user } = useAuth();
 
-   const { mounted } = useProtectedRoute(user);
+   const { mounted } = useProtectedRoute();
 
    useEffect(() => {
       if (loaded && !error && mounted) {

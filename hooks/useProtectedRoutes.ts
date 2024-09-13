@@ -1,15 +1,16 @@
 import { useRouter, useSegments } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { AppUser } from '~/shared/types';
+import { useAuth } from '~/providers/AuthContext';
 
-export function useProtectedRoute(user: AppUser | null) {
+export function useProtectedRoute() {
    const segments = useSegments();
    const router = useRouter();
    const [mounted, setMounted] = useState(false);
+   const { loading, user } = useAuth();
 
    useEffect(() => {
       setMounted(true);
-   }, []);
+   }, [loading]);
    useEffect(() => {
       if (!mounted) return;
       const inAuthGroup = segments[1] === '(auth)';

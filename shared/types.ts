@@ -61,6 +61,7 @@ export type Appointment = {
    updatedCount: number;
    status: AppointmentStatus;
    changesMadeBy: 'customer' | 'barber';
+   reminderSent: boolean;
 };
 
 export type Response = {

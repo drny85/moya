@@ -1,11 +1,13 @@
 import { Dimensions } from 'react-native';
 import { IconImageType, Schedule } from '~/shared/types';
+import Constants from 'expo-constants';
 
 const { width, height } = Dimensions.get('screen');
 
 export const SIZES = {
    width,
    height,
+   statusBarHeight: Constants.statusBarHeight,
 };
 
 export const SITE_URL = 'https://moya-site.vercel.app';

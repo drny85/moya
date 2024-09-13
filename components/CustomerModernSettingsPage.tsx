@@ -29,10 +29,10 @@ export default function CustomerModernSettingsPage() {
    const [view, setView] = useState<'schedule' | 'services' | 'user-update' | undefined>(undefined);
 
    const { photo, selectedImage, handleImageUpload, resetAll, uploadPhoto } = usePhoto();
-   const { colors } = useColorScheme();
+   const { colors, isDarkColorScheme } = useColorScheme();
 
    const bottomSheetRef = useSheetRef();
-   const snapoints = useMemo(() => ['90%'], []);
+   const snapoints = useMemo(() => ['80%'], []);
    const [name, setName] = useState('');
    const [phone, setPhone] = useState('');
 
@@ -111,6 +111,7 @@ export default function CustomerModernSettingsPage() {
          headerImage={
             <ImageBackground
                style={{ height: SIZES.height * 0.4, width: '100%' }}
+               tintColor={isDarkColorScheme ? '#ffffff' : '#212121'}
                imageStyle={{
                   objectFit: 'cover',
                }}
@@ -269,7 +270,7 @@ export default function CustomerModernSettingsPage() {
             <Text className="ml-3 text-muted">version: {Constants.expoConfig?.version}</Text>
          </View>
 
-         <Sheet snapPoints={snapoints} ref={bottomSheetRef}>
+         <Sheet snapPoints={snapoints} ref={bottomSheetRef} topInset={SIZES.statusBarHeight + 10}>
             <View className="mb-2 flex-1">
                {view === 'user-update' && (
                   <View className="px-2">

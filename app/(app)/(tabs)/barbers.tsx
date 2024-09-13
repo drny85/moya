@@ -1,6 +1,5 @@
 import { FlashList } from '@shopify/flash-list';
 import { View } from 'react-native';
-
 import BarberCard from '~/components/BarberCard';
 import { Container } from '~/components/Container';
 import { Text } from '~/components/nativewindui/Text';

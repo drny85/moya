@@ -19,6 +19,12 @@ export function useNotificationObserver() {
                params: { appointmentId: data.id },
             });
          }
+         if (data.notificationType === 'reminder') {
+            router.push({
+               pathname: '/appointment',
+               params: { appointmentId: data.id },
+            });
+         }
       }
 
       Notifications.getLastNotificationResponseAsync().then((response) => {

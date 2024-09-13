@@ -38,7 +38,15 @@ const TopServices: React.FC<TopServicesProps> = ({ services }) => {
                         style={styles.icon}
                      />
                      <Text className="text-xs">{service.name}</Text>
-                     <Text className="text-sm text-muted">${service.price}</Text>
+                     <View className="my-1 flex-row items-center gap-1">
+                        <Text className="text-sm text-muted dark:text-slate-300">
+                           ${service.price}
+                        </Text>
+                        <View className="h-1 w-1 rounded-full bg-slate-400" />
+                        <Text className="text-sm text-muted dark:text-slate-300">
+                           {service.duration} mins
+                        </Text>
+                     </View>
                   </TouchableOpacity>
                ))}
          </ScrollView>

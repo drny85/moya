@@ -153,6 +153,7 @@ const BookingPage = () => {
                phone: barber.phone,
                pushToken: barber.pushToken,
             },
+            reminderSent: false,
             customer: {
                id: user.id,
                name: user.name,
