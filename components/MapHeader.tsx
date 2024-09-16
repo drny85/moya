@@ -1,7 +1,7 @@
 import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
 import { Image, ImageBackground } from 'expo-image';
 import { router } from 'expo-router';
-import React, { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { TouchableOpacity, View, ViewStyle } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -10,8 +10,8 @@ import { useLocation } from '~/hooks/useLocation';
 import { customMapStyle } from '~/lib/customMapStyle';
 import { useColorScheme } from '~/lib/useColorScheme';
 import { useAuth } from '~/providers/AuthContext';
+import Loading from './Loading';
 import { Text } from './nativewindui/Text';
-import { ActivityIndicator } from './nativewindui/ActivityIndicator';
 
 type Props = {
    shouldGoBack: boolean;
@@ -19,7 +19,7 @@ type Props = {
 };
 
 const MapHeader = ({ shouldGoBack, containerStyle }: Props) => {
-   const mapRef = React.useRef<MapView>(null);
+   const mapRef = useRef<MapView>(null);
    const { isDarkColorScheme } = useColorScheme();
    const { user } = useAuth();
    const { top } = useSafeAreaInsets();
@@ -39,7 +39,7 @@ const MapHeader = ({ shouldGoBack, containerStyle }: Props) => {
       });
    }, [mapRef]);
 
-   if (loading) return <ActivityIndicator />;
+   if (loading) return <Loading />;
 
    return (
       <View style={[{ flex: 0.5 }, containerStyle]}>

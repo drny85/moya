@@ -1,10 +1,10 @@
 import { useLocalSearchParams } from 'expo-router';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import LoginForm from '~/components/Forms/LoginForm';
 import SignupForm from '~/components/Forms/SignupForm';
 import KeyboardScreen from '~/components/KeyboardScreen';
-import { ActivityIndicator } from '~/components/nativewindui/ActivityIndicator';
+import Loading from '~/components/Loading';
 import { Text } from '~/components/nativewindui/Text';
 import { ThemeToggle } from '~/components/nativewindui/ThemeToggle';
 import { useColorScheme } from '~/lib/useColorScheme';
@@ -22,7 +22,7 @@ const LoginScreen = () => {
       if (mode === 'register') setIsSignUp(true);
    }, [mode]);
 
-   if (loading) return <ActivityIndicator />;
+   if (loading) return <Loading />;
 
    return (
       <KeyboardScreen style={styles.container}>

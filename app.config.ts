@@ -39,7 +39,8 @@ const config: ExpoConfig = {
       [
          'expo-location',
          {
-            locationAlwaysAndWhenInUsePermission: 'Allow $(PRODUCT_NAME) to use your location.',
+            locationAlwaysAndWhenInUsePermission:
+               'Allow $(PRODUCT_NAME) to use your location to show the distance to your favorite barber-shop.',
          },
       ],
    ],
