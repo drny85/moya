@@ -9,6 +9,7 @@ import { useAuth } from '~/providers/AuthContext';
 import { DEFAULT_SCHEDULE } from '~/constants';
 import { AppUser } from '~/shared/types';
 import { Text } from '../nativewindui/Text';
+import { router, useLocalSearchParams } from 'expo-router';
 
 const signupSchema = z
    .object({
@@ -43,6 +44,8 @@ type SignupFormData = z.infer<typeof signupSchema>;
 
 const SignupForm: React.FC = () => {
    const { signUp, createUser } = useAuth();
+   const params = useLocalSearchParams();
+   console.log(params);
    const { control, handleSubmit } = useForm<SignupFormData>({
       resolver: zodResolver(signupSchema),
    });
@@ -82,7 +85,16 @@ const SignupForm: React.FC = () => {
                };
             }
 
-            createUser(newUser);
+            const userSaved = await createUser(newUser);
+            if (userSaved) {
+               if (user) {
+                  if (params && params.returnUrl) {
+                     router.replace(params.returnUrl as any);
+                  }
+               }
+            } else {
+               console.log('Error creating user');
+            }
          }
       } catch (error) {
          console.log(error);

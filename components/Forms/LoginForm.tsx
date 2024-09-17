@@ -26,10 +26,8 @@ const LoginForm: React.FC = () => {
    const { control, handleSubmit } = useForm<LoginFormData>({
       resolver: zodResolver(loginSchema),
    });
-
    const { signIn } = useAuth();
    const params = useLocalSearchParams();
-   console.log(params);
 
    const onSubmit = async (data: LoginFormData) => {
       try {

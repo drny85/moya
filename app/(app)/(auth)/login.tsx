@@ -7,7 +7,6 @@ import SignupForm from '~/components/Forms/SignupForm';
 import KeyboardScreen from '~/components/KeyboardScreen';
 import Loading from '~/components/Loading';
 import { Text } from '~/components/nativewindui/Text';
-import { ThemeToggle } from '~/components/nativewindui/ThemeToggle';
 import { useColorScheme } from '~/lib/useColorScheme';
 import { useAuth } from '~/providers/AuthContext';
 

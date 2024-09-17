@@ -15,7 +15,9 @@ const ProfilePage = () => {
       return (
          <Container>
             <View className="flex-1 items-center justify-center gap-7">
-               <Text variant={'subhead'}>Please login to see your profile page</Text>
+               <Text className="text-xl text-muted dark:text-white">
+                  Please login to see your profile page
+               </Text>
                <Button
                   title="Login"
                   textStyle={{ paddingHorizontal: 20 }}

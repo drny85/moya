@@ -10,6 +10,7 @@ import TimeSlotPickerComponent from '~/components/Appointment/TimeSlotsPicker';
 import BarberImageHeader from '~/components/BarberImageHeader';
 import { Button } from '~/components/Button';
 import PhotoGallery from '~/components/Gallery';
+import Loading from '~/components/Loading';
 import Rating from '~/components/Rating';
 
 import ReviewsList from '~/components/ReviewsLIst';
@@ -92,7 +93,7 @@ const BarberDetails = () => {
       bottomSheetRef.current?.present();
    };
 
-   if (!barber || !user || loading) return null;
+   if (!barber || loading) return <Loading />;
 
    return (
       <View className="mb-2 flex-1 bg-background">

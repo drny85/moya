@@ -69,6 +69,7 @@ const MapHeader = ({ shouldGoBack, containerStyle }: Props) => {
             <ImageBackground
                source={require('~/assets/images/banner.png')}
                style={{ width: '100%', height: '100%' }}
+               tintColor={isDarkColorScheme ? '#ffffff' : '#212121'}
             />
          )}
          <View

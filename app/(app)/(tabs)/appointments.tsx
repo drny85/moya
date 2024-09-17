@@ -51,7 +51,9 @@ const AppointmentPage = () => {
       return (
          <Container>
             <View className="flex-1 items-center justify-center gap-6">
-               <Text className="text-xl text-muted">Please login to view your appointments</Text>
+               <Text className="text-xl text-muted dark:text-white">
+                  Please login to view your appointments
+               </Text>
                <Button
                   title="Login"
                   textStyle={{ paddingHorizontal: 20 }}

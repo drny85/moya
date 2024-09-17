@@ -33,7 +33,7 @@ const config: ExpoConfig = {
          'expo-image-picker',
          {
             photosPermission:
-               'The app accesses your photos to let you share them with your friends.',
+               'The app accesses your photos to let you share them with your friends or barber.',
          },
       ],
       [

@@ -17,7 +17,7 @@ type AuthContextType = {
    user: AppUser | null;
    signIn: (email: string, password: string) => Promise<UserCredential>;
    signUp: (email: string, password: string, isBarber: boolean) => Promise<UserCredential>;
-   createUser: (user: AppUser) => Promise<void>;
+   createUser: (user: AppUser) => Promise<boolean>;
    logOut: () => Promise<void>;
    loading: boolean;
    setUser: (user: AppUser | null) => void;
@@ -85,8 +85,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
    const createUser = async (user: AppUser) => {
       try {
          await setDoc(doc(usersCollection, user.id), user);
+         return true;
       } catch (error) {
          console.log(error);
+         return false;
       }
    };
 
