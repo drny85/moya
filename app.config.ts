@@ -2,7 +2,7 @@ import { ExpoConfig } from 'expo/config';
 const config: ExpoConfig = {
    name: 'Moya Barber',
    slug: 'moya-barber',
-   version: '1.0.0',
+   version: '1.0.1',
    scheme: 'moya-barber',
    web: {
       bundler: 'metro',
@@ -66,9 +66,13 @@ const config: ExpoConfig = {
    ios: {
       supportsTablet: false,
       bundleIdentifier: 'net.robertdev.moyabarber',
-      buildNumber: '1.0.0',
+      buildNumber: '1.0.1',
       infoPlist: {
          LSApplicationQueriesSchemes: ['tel'],
+         NSLocationWhenInUseUsageDescription:
+            'Allow $(PRODUCT_NAME) to use your location to show the distance to your favorite barber-shop.',
+         NSLocationAlwaysAndWhenInUseUsageDescription:
+            'Allow $(PRODUCT_NAME) to use your location to show the distance to your favorite barber-shop.',
       },
       config: {
          googleMapsApiKey: process.env.EXPO_PUBLIC_GOOGLE_API_IOS,
