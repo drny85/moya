@@ -58,6 +58,7 @@ const TimeSlotPickerComponent: React.FC<TimeSlotPickerProps> = ({ barber, date, 
       .filter((a) => a.barber.id === barber?.id)
       .filter((b) => isSameDay(b.date, day.toISOString()))
       .map((appointment) => appointment.startTime);
+   console.log(bookedSlots);
    // const durationTotal = appointments
    //    .filter((app) => app.status !== 'cancelled')
    //    .filter((a) => a.barber.id === barber?.id)

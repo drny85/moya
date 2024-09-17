@@ -1,11 +1,13 @@
 import { FontAwesome } from '@expo/vector-icons';
+import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
 import { isPast, isSameDay } from 'date-fns';
 import { router, useLocalSearchParams } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Alert, ScrollView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { updateAppointmentInDatabase } from '~/actions/appointments';
+import { updateUser } from '~/actions/users';
 
 import AppointmentDatePicker from '~/components/Appointment/AppointmentDatePicker';
 import DateTimeAppointmentPicker from '~/components/Appointment/DateTimeAppointmentPicker';
@@ -15,6 +17,7 @@ import { Button } from '~/components/Button';
 import { Sheet, useSheetRef } from '~/components/nativewindui/Sheet';
 import { Text } from '~/components/nativewindui/Text';
 import { useServices } from '~/hooks/useServices';
+import { useUser } from '~/hooks/useUser';
 import { toastAlert, toastMessage } from '~/lib/toast';
 import { useColorScheme } from '~/lib/useColorScheme';
 import { useAuth } from '~/providers/AuthContext';
@@ -24,6 +27,7 @@ import { useBarbersStore } from '~/providers/useBarbersStore';
 import { Appointment } from '~/shared/types';
 import { appointmentsConflict } from '~/utils/appointmentsConflict';
 import { objectsAreDifferent } from '~/utils/compareTwoObjects';
+import { formatPhone } from '~/utils/formatPhone';
 import { getAppointmentDuration } from '~/utils/getAppointmentDuration';
 import { getAppointmentPrice } from '~/utils/getAppointmentPrice';
 import { getBookingDate } from '~/utils/getBookingDate';
@@ -34,13 +38,16 @@ type ParamProps = {
 };
 
 const BookingPage = () => {
+   useUser();
    const { barberId, appointmentId } = useLocalSearchParams<ParamProps>();
    const { loading, services } = useServices(barberId);
    const { colors } = useColorScheme();
    const barbers = useBarbersStore((state) => state.barbers);
    const { user } = useAuth();
    const barber = barbers.find((barber) => barber.id === barberId);
-
+   const [phone, setPhone] = useState(user?.phone);
+   const bottomSheetModalRef = useSheetRef();
+   const bottomSheetModalRef2 = useSheetRef();
    const {
       setSelectedTimeSlot,
       setIndex,
@@ -60,8 +67,6 @@ const BookingPage = () => {
             !isPast(appointment.date) &&
             isSameDay(appointment.date, selectedDate)
       ) !== -1;
-
-   const bottomSheetModalRef = useSheetRef();
 
    const handleSchuduleAppointment = async () => {
       if (selectedServices.length === 0) {
@@ -83,6 +88,10 @@ const BookingPage = () => {
             pathname: '/(auth)/login',
             params: { returnUrl: `/booking?barberId=${barberId}` },
          });
+         return;
+      }
+      if (phone?.length !== 14) {
+         bottomSheetModalRef2.current?.present();
          return;
       }
 
@@ -194,23 +203,31 @@ const BookingPage = () => {
          }
 
          const saved = await addNewAppointment(appointment);
-         if (saved) {
-            setSelectedTimeSlot(null);
-            setIndex(0);
-            setSelectedDate(new Date());
-            setServices([]);
-            toastMessage({
-               title: 'Appointment booked',
-               message: 'Your appointment has been booked',
-               preset: 'done',
-               duration: 2,
-            });
-            bottomSheetModalRef.current?.close();
-            router.dismiss();
-            router.replace({ pathname: '/appointments', params: { confetti: 'yes' } });
-         }
+         await cleanUpAfterSave(saved);
       } catch (error) {
          console.log('��� ~ file: #barber.tsx:58 ~ handleSchuduleAppointment ~ error:', error);
+      }
+   };
+
+   const cleanUpAfterSave = async (saved: boolean) => {
+      if (saved) {
+         setSelectedTimeSlot(null);
+         setIndex(0);
+         setSelectedDate(new Date());
+         setServices([]);
+         toastMessage({
+            title: 'Appointment booked',
+            message: 'Your appointment has been booked',
+            preset: 'done',
+            duration: 2,
+         });
+         if (user && phone) {
+            await updateUser({ ...user, phone });
+         }
+
+         bottomSheetModalRef.current?.close();
+         router.dismiss();
+         router.replace({ pathname: '/appointments', params: { confetti: 'yes' } });
       }
    };
 
@@ -314,6 +331,26 @@ const BookingPage = () => {
                />
             </View>
          </View>
+         <Sheet ref={bottomSheetModalRef2} snapPoints={['60%']}>
+            <View className="flex-1 gap-4 p-3">
+               <Text variant={'title3'} className="ml-2">
+                  Phone Number is required
+               </Text>
+               <BottomSheetTextInput
+                  className={`m-2 border-b-[1px] border-slate-300 bg-card p-2 font-roboto text-lg ${phone?.length === 14 ? 'border-green-600' : 'border-slate-300'}`}
+                  placeholder="(646) 555-4444"
+                  keyboardType="numeric"
+                  value={phone}
+                  onChangeText={(text) => setPhone(formatPhone(text))}
+               />
+               <Button
+                  disabled={phone?.length !== 14}
+                  title="Save"
+                  style={{ opacity: phone?.length === 14 ? 1 : 0.5 }}
+                  onPress={() => bottomSheetModalRef2.current?.close()}
+               />
+            </View>
+         </Sheet>
          <Sheet
             ref={bottomSheetModalRef}
             handleIndicatorStyle={{ backgroundColor: colors.primary }}

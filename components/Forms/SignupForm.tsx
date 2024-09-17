@@ -45,13 +45,12 @@ type SignupFormData = z.infer<typeof signupSchema>;
 const SignupForm: React.FC = () => {
    const { signUp, createUser } = useAuth();
    const params = useLocalSearchParams();
-   console.log(params);
+
    const { control, handleSubmit } = useForm<SignupFormData>({
       resolver: zodResolver(signupSchema),
    });
 
    const onSubmit = async (data: SignupFormData) => {
-      console.log('Signup Data:', data);
       try {
          const { user } = await signUp(data.email, data.password, data.isBarber || false);
          if (user) {
@@ -76,7 +75,7 @@ const SignupForm: React.FC = () => {
                newUser = {
                   id: user.uid,
                   email: data.email,
-                  phone: data.phone,
+                  phone: data.phone || '',
                   image: null,
                   pushToken: null,
                   name: data.name || '',
@@ -105,6 +104,7 @@ const SignupForm: React.FC = () => {
       <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
          <TextInput
             name="name"
+            autoFocus
             control={control}
             label="Full Name"
             placeholder="John Smith"

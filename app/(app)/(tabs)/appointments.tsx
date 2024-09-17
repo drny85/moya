@@ -27,6 +27,7 @@ const AppointmentPage = () => {
    const appointments = useAppointmentStore((s) =>
       s.appointments.filter((appointment) => appointment.customer.id === user?.id)
    );
+
    const confettiRef = useRef<ConfettiComponentRef>(null);
    const data = useMemo(
       () => appointments.sort((a, b) => (a.date < b.date ? 1 : -1)),

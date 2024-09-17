@@ -32,13 +32,17 @@ const TextInput: React.FC<TextInputParams> = ({
             control={control}
             name={name}
             rules={rules}
-            render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+            render={({
+               field: { onChange, onBlur, value },
+               fieldState: { error, invalid, isDirty, isTouched },
+            }) => (
                <>
                   <RNTextInput
                      style={[
                         styles.input,
                         { color: isDarkColorScheme ? '#ffffff' : '#212121' },
                         error && styles.errorInput,
+                        !invalid && isDirty && isTouched && styles.valid,
                      ]}
                      onBlur={onBlur}
                      onChangeText={
@@ -64,7 +68,7 @@ const TextInput: React.FC<TextInputParams> = ({
 
 const styles = StyleSheet.create({
    container: {
-      marginBottom: 20,
+      marginBottom: 12,
    },
    label: {
       marginBottom: 5,
@@ -78,6 +82,9 @@ const styles = StyleSheet.create({
       borderWidth: 1,
       borderRadius: 10,
       paddingHorizontal: 10,
+   },
+   valid: {
+      borderColor: 'green',
    },
    errorInput: {
       borderColor: 'red',

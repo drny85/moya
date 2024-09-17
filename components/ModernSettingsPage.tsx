@@ -2,18 +2,15 @@ import { AntDesign, Feather, FontAwesome, FontAwesome6, MaterialIcons } from '@e
 import Constants from 'expo-constants';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Alert, Button, Keyboard, StyleSheet, TouchableOpacity, View } from 'react-native';
-
 import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
 import { router } from 'expo-router';
-
-const IMAGE_HEIGHT = 100;
-
 import { BlurView } from 'expo-blur';
 import { ImageBackground } from 'expo-image';
 import { updateUser } from '~/actions/users';
 import { SIZES } from '~/constants';
 import { deleteUserFunction } from '~/firebase';
 import { usePhoto } from '~/hooks/usePhoto';
+import { useUser } from '~/hooks/useUser';
 import { toastMessage } from '~/lib/toast';
 import { useColorScheme } from '~/lib/useColorScheme';
 import { useAuth } from '~/providers/AuthContext';
@@ -26,9 +23,9 @@ import { Text } from './nativewindui/Text';
 import { ThemeToggle } from './nativewindui/ThemeToggle';
 import { Toggle } from './nativewindui/Toggle';
 import ParallaxScrollView from './ParallaxScrollView';
-import { useUser } from '~/hooks/useUser';
 
 const MINUTES_INTERVAL = [15, 30, 45];
+const IMAGE_HEIGHT = 100;
 
 export default function ModernSettingsPage() {
    useUser();
@@ -192,7 +189,23 @@ export default function ModernSettingsPage() {
                   className="absolute bottom-0 left-0 right-0 flex-1 overflow-hidden rounded-md p-2">
                   <View>
                      <Text className="text-xl text-muted text-white">{user?.name}</Text>
-                     <Text className="text-sm text-muted text-white">{user?.phone}</Text>
+                     {user?.phone ? (
+                        <Text className="text-sm text-muted text-white">{user?.phone}</Text>
+                     ) : (
+                        <View className="mt-1 flex-row items-center justify-between">
+                           <Text className="text-lg text-muted text-white">No phone number</Text>
+                           <TouchableOpacity
+                              onPress={() => {
+                                 setView('user-update');
+                                 bottomSheetRef.current?.present();
+                              }}
+                              className="animate-pulse rounded-lg bg-card px-2">
+                              <Text className="font-roboto-bold text-lg text-muted text-slate-800">
+                                 Add phone number
+                              </Text>
+                           </TouchableOpacity>
+                        </View>
+                     )}
                      <Text className="text-sm text-muted text-white">{user?.email}</Text>
                   </View>
                </BlurView>
@@ -397,7 +410,7 @@ export default function ModernSettingsPage() {
             <Text className="ml-3 text-muted">version: {Constants.expoConfig?.version}</Text>
          </View>
 
-         <Sheet snapPoints={snapoints} ref={bottomSheetRef}>
+         <Sheet snapPoints={snapoints} ref={bottomSheetRef} topInset={SIZES.statusBarHeight}>
             <View className="mb-2 flex-1">
                {view === 'schedule' && user?.isBarber && (
                   <ScheduleEditor
@@ -443,6 +456,7 @@ export default function ModernSettingsPage() {
                               padding: 10,
                               backgroundColor: 'rgba(151, 151, 151, 0.25)',
                            }}
+                           autoFocus={!user?.phone}
                            defaultValue={user?.phone!}
                            placeholder="Cell Phone Number"
                            value={phone}

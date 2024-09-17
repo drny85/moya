@@ -60,7 +60,7 @@ const BarberCard = ({ barber, index, isOwner, activeNode, disabled = false }: Pr
                   <View className="flex-grow flex-row items-center justify-between ">
                      <Text className="text-lg font-bold">{barber.name}</Text>
                      <View className="min-w-24">
-                        <CommunicationButtons phone={barber.phone} />
+                        {barber.phone && <CommunicationButtons phone={barber.phone} />}
                      </View>
                   </View>
 

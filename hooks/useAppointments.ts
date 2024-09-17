@@ -21,7 +21,7 @@ export const useAppointments = () => {
          setAppointments(appointments as Appointment[]);
          setLoading(false);
       });
-   }, []);
+   }, [user]);
 
    return { loading };
 };
