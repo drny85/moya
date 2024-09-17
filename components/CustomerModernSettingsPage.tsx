@@ -94,13 +94,11 @@ export default function CustomerModernSettingsPage() {
    useEffect(() => {
       if (!photo || !user) return;
       if (selectedImage) {
-         console.log('Updating user image');
          updateUser({ ...user, image: selectedImage });
          resetAll();
       }
 
       if (photo && photo?.assets![0].uri && !selectedImage) {
-         console.log('Uploading photo');
          uploadPhoto(photo, user?.id!);
       }
    }, [photo, selectedImage]);
@@ -111,7 +109,7 @@ export default function CustomerModernSettingsPage() {
          headerImage={
             <ImageBackground
                style={{ height: SIZES.height * 0.4, width: '100%' }}
-               tintColor={isDarkColorScheme ? '#ffffff' : '#212121'}
+               tintColor={user?.image ? undefined : isDarkColorScheme ? '#ffffff' : '#212121'}
                imageStyle={{
                   objectFit: 'cover',
                }}
@@ -119,11 +117,7 @@ export default function CustomerModernSettingsPage() {
                   !user?.image
                      ? require('~/assets/images/banner.png')
                      : {
-                          uri: user?.image
-                             ? user.image
-                             : photo?.assets![0].uri
-                               ? photo.assets[0].uri
-                               : 'https://picsum.photos/160/160?random=1&blur=2',
+                          uri: user.image,
                        }
                }>
                <View

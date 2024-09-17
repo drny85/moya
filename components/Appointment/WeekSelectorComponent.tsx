@@ -8,8 +8,8 @@ import { Text } from '../nativewindui/Text';
 
 import { useAppointmentFlowStore } from '~/providers/useAppoitmentFlowStore';
 
-import { useAppointmentStore } from '~/providers/useAppointmentStore';
 import { useAuth } from '~/providers/AuthContext';
+import { useAppointmentStore } from '~/providers/useAppointmentStore';
 import { Days, Schedule } from '~/shared/types';
 
 type DayProps = {
@@ -144,7 +144,8 @@ const WeekSelector: React.FC<Props> = ({ schedule, onPress }) => {
 
          <ScrollView
             horizontal
-            pagingEnabled
+            snapToAlignment="center"
+            scrollEnabled={false}
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{ gap: 6 }}>
             {weekDates.map((date, index) => {
