@@ -12,6 +12,7 @@ import SegmentedControl from '@react-native-segmented-control/segmented-control'
 import { COLORS } from '~/theme/colors';
 import { useAuth } from '~/providers/AuthContext';
 import { useColorScheme } from '~/lib/useColorScheme';
+import { Container } from '~/components/Container';
 
 const VALUES = ['Upcoming', 'Past'];
 
@@ -46,6 +47,21 @@ const AppointmentPage = () => {
       }
    }, [confetti]);
 
+   if (!user)
+      return (
+         <Container>
+            <View className="flex-1 items-center justify-center gap-6">
+               <Text className="text-xl text-muted">Please login to view your appointments</Text>
+               <Button
+                  title="Login"
+                  textStyle={{ paddingHorizontal: 20 }}
+                  onPress={() => {
+                     router.push({ pathname: '/login', params: { returnUrl: '/appointments' } });
+                  }}
+               />
+            </View>
+         </Container>
+      );
    return (
       <View className="flex-1 p-1">
          <SegmentedControl

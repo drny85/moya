@@ -1,12 +1,14 @@
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
+import { Feather } from '@expo/vector-icons';
 import { ThemeProvider as NavThemeProvider } from '@react-navigation/native';
 import 'expo-dev-client';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
-import { Appearance } from 'react-native';
+import { Appearance, TouchableOpacity } from 'react-native';
+import { BackButton } from '~/components/BackButton';
 import { ThemeToggle } from '~/components/nativewindui/ThemeToggle';
 import { Fonts } from '~/constants/Fonts';
 import '~/global.css';
@@ -23,7 +25,7 @@ export {
 export default function RootLayout() {
    useInitialAndroidBarSync();
    const [loaded, error] = useFonts(Fonts);
-   const { colorScheme, isDarkColorScheme } = useColorScheme();
+   const { colorScheme, isDarkColorScheme, colors } = useColorScheme();
    useSchemeListener();
    useUser();
 
@@ -55,7 +57,41 @@ export default function RootLayout() {
                <Stack screenOptions={{ ...SCREEN_OPTIONS }}>
                   <Stack.Screen name="(tabs)" options={TABS_OPTIONS} />
                   <Stack.Screen name="(barber-tabs)" options={TABS_OPTIONS} />
-                  <Stack.Screen name="(auth)/login" options={TABS_OPTIONS} />
+                  <Stack.Screen
+                     name="(auth)"
+                     options={{
+                        headerBackTitle: 'Back',
+                        title: '',
+                        headerShadowVisible: false,
+                        headerStyle: {
+                           backgroundColor: colors.background,
+                        },
+                        // headerTintColor: colors.grey,
+                        headerTitleStyle: {
+                           fontWeight: 'bold',
+                           color: '#ffffff',
+                        },
+                        presentation: 'modal',
+                        animation: 'slide_from_bottom',
+                        //headerShown: false,
+                        contentStyle: {
+                           backgroundColor: colors.background,
+                        },
+                        headerLeft: () => (
+                           <TouchableOpacity onPress={router.back}>
+                              <Feather
+                                 name="chevron-left"
+                                 className="p-2"
+                                 size={26}
+                                 color={isDarkColorScheme ? '#ffffff' : '#212121'}
+                              />
+                           </TouchableOpacity>
+                        ),
+                        headerRight: () => {
+                           return <ThemeToggle />;
+                        },
+                     }}
+                  />
                   <Stack.Screen name="(terms)" options={TABS_OPTIONS} />
                   <Stack.Screen name="(modals)" options={TABS_OPTIONS} />
                </Stack>

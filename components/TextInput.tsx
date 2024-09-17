@@ -8,7 +8,7 @@ import { Text } from '~/components/nativewindui/Text';
 type TextInputParams = TextInputProps & {
    name: string;
    control: any;
-   label?: string;
+   label?: string | React.ReactNode;
    placeholder?: string;
    secureTextEntry?: boolean;
    capitalize?: boolean;

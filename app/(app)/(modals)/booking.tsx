@@ -78,6 +78,13 @@ const BookingPage = () => {
          bottomSheetModalRef.current?.present();
          return;
       }
+      if (!user) {
+         router.push({
+            pathname: '/(auth)/login',
+            params: { returnUrl: `/booking?barberId=${barberId}` },
+         });
+         return;
+      }
 
       if (alreadyHaveAnAppointmentToday && !appointmentId) {
          toastAlert({

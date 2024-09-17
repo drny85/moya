@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Button } from 'react-native';
+import { Button, ScrollView } from 'react-native';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -8,6 +8,7 @@ import CheckBox from '../CheckBox';
 import { useAuth } from '~/providers/AuthContext';
 import { DEFAULT_SCHEDULE } from '~/constants';
 import { AppUser } from '~/shared/types';
+import { Text } from '../nativewindui/Text';
 
 const signupSchema = z
    .object({
@@ -25,7 +26,7 @@ const signupSchema = z
             }
          ),
       email: z.string().email(),
-      phone: z.string({ message: 'Cell phone is required' }).min(14, 'Invalid phone'),
+      phone: z.string().min(14, 'Invalid phone').optional(),
       password: z.string().min(6, 'Password must be at least 6 characters long'),
       confirmPassword: z.string().min(6, 'Confirm Password must be at least 6 characters long'),
       isBarber: z.boolean().optional(),
@@ -56,7 +57,7 @@ const SignupForm: React.FC = () => {
                newUser = {
                   id: user.uid,
                   email: data.email,
-                  phone: data.phone,
+                  phone: data.phone || '',
                   name: data.name || '',
                   isBarber: true,
                   isActive: false,
@@ -89,7 +90,7 @@ const SignupForm: React.FC = () => {
    };
 
    return (
-      <View>
+      <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
          <TextInput
             name="name"
             control={control}
@@ -100,7 +101,11 @@ const SignupForm: React.FC = () => {
          <TextInput
             name="phone"
             control={control}
-            label="Cell Phone"
+            label={
+               <Text>
+                  Cell Phone <Text className="text-sm text-muted">(optional)</Text>
+               </Text>
+            }
             keyboardType="numeric"
             placeholder="(646) 588-8888"
          />
@@ -131,7 +136,7 @@ const SignupForm: React.FC = () => {
          <CheckBox name="isBarber" control={control} label="Are you signing up as a barber?" />
          {/* <CheckBox name="acceptTerms" control={control} label="I accept the terms and conditions" /> */}
          <Button title="Sign Up" onPress={handleSubmit(onSubmit)} />
-      </View>
+      </ScrollView>
    );
 };
 

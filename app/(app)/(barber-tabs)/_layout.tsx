@@ -1,4 +1,4 @@
-import { Tabs } from 'expo-router';
+import { Redirect, Tabs } from 'expo-router';
 import { Image } from 'react-native';
 
 import { TabBarIcon } from '../../../components/TabBarIcon';
@@ -6,13 +6,14 @@ import { TabBarIcon } from '../../../components/TabBarIcon';
 import { useAppointments } from '~/hooks/useAppointments';
 import { useNotifications } from '~/hooks/useNotification';
 import { useColorScheme } from '~/lib/useColorScheme';
+import { useAuth } from '~/providers/AuthContext';
 
 export default function BarberTabLayout() {
    const { colors, isDarkColorScheme } = useColorScheme();
-
+   const { user } = useAuth();
    useAppointments();
    useNotifications();
-
+   if (!user) return <Redirect href={'/(app)/(tabs)'} />;
    return (
       <Tabs
          screenOptions={{
@@ -25,7 +26,7 @@ export default function BarberTabLayout() {
             },
          }}>
          <Tabs.Screen
-            name="index"
+            name="barber-home"
             options={{
                headerShown: false,
                title: 'Home',

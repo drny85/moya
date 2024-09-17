@@ -11,6 +11,7 @@ import TextInput from '../TextInput';
 
 import { Sheet, useSheetRef } from '../nativewindui/Sheet';
 import ForgotPassword from './ForgtoPassword';
+import { router, useLocalSearchParams } from 'expo-router';
 
 const loginSchema = z.object({
    email: z.string().email(),
@@ -27,10 +28,17 @@ const LoginForm: React.FC = () => {
    });
 
    const { signIn } = useAuth();
+   const params = useLocalSearchParams();
+   console.log(params);
 
    const onSubmit = async (data: LoginFormData) => {
       try {
-         await signIn(data.email, data.password);
+         const { user } = await signIn(data.email, data.password);
+         if (user) {
+            if (params && params.returnUrl) {
+               router.replace(params.returnUrl as any);
+            }
+         }
       } catch (error) {
          console.log(error);
          const err = error as Error;

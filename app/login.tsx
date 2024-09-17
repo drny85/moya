@@ -1,7 +1,6 @@
 import { useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-
 import LoginForm from '~/components/Forms/LoginForm';
 import SignupForm from '~/components/Forms/SignupForm';
 import KeyboardScreen from '~/components/KeyboardScreen';
@@ -27,6 +26,7 @@ const LoginScreen = () => {
 
    return (
       <KeyboardScreen style={styles.container}>
+         <ThemeToggle />
          <Text className="text-center" variant={'title1'}>
             Welcome
          </Text>

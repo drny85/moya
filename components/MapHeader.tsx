@@ -106,7 +106,9 @@ const MapHeader = ({ shouldGoBack, containerStyle }: Props) => {
                   source={user?.image ? { uri: user.image } : require('~/assets/images/banner.png')}
                />
             )}
-            <Text className="font-raleway-bold text-2xl">Hi, {user?.name?.split(' ')[0]}</Text>
+            {user && (
+               <Text className="font-raleway-bold text-2xl">Hi, {user?.name?.split(' ')[0]}</Text>
+            )}
             <TouchableOpacity
                onPress={() => {
                   mapRef.current?.animateCamera({

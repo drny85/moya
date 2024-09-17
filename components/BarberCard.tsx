@@ -77,9 +77,12 @@ const BarberCard = ({ barber, index, isOwner, activeNode, disabled = false }: Pr
                         <Button
                            style={{ paddingVertical: 9 }}
                            title="Book Now"
-                           onPress={() =>
-                              router.push({ pathname: '/booking', params: { barberId: barber.id } })
-                           }
+                           onPress={() => {
+                              router.push({
+                                 pathname: '/booking',
+                                 params: { barberId: barber.id },
+                              });
+                           }}
                         />
                      )}
                   </View>
