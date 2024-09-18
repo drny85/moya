@@ -46,7 +46,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                } as AppUser;
                setUser({ ...user });
             } else {
-               console.log('HERE');
                setUser(null);
             }
          } catch (error) {

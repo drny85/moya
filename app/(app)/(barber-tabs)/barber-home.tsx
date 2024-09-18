@@ -2,13 +2,12 @@ import { Feather } from '@expo/vector-icons';
 import { format, isPast, isToday } from 'date-fns';
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { FlatList, ScrollView, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AnimatedNumber from '~/components/AnimatedNumber';
 import AppointmentCard from '~/components/Appointment/AppointmentCard';
 import { Button } from '~/components/Button';
-import { Container } from '~/components/Container';
 import { Text } from '~/components/nativewindui/Text';
 import { useServices } from '~/hooks/useServices';
 import { useAuth } from '~/providers/AuthContext';
@@ -87,6 +86,7 @@ const BarberHome = () => {
                   </View>
                </View>
             </View>
+
             {!loading && services.length === 0 && (
                <View className="w-full items-center justify-center gap-2 p-2">
                   <Text className="text-center text-xl text-muted">No services available</Text>
@@ -102,7 +102,18 @@ const BarberHome = () => {
                   />
                </View>
             )}
-            <ScrollView className="flex-1" contentContainerClassName="gap-2">
+            <ScrollView
+               className="flex-1"
+               contentContainerClassName="gap-2"
+               showsVerticalScrollIndicator={false}>
+               {user?.isBarber && !user.isActive && (
+                  <View className="m-1 rounded-md bg-red-200 p-2">
+                     <Text className="mb-2 text-center font-roboto-bold text-xl">
+                        Your account is not active
+                     </Text>
+                     <Text>Please notify the Barber's owner to activate your account</Text>
+                  </View>
+               )}
                <View className="bg-card p-2">
                   <Text variant={'title3'}>My Next Appointment</Text>
                   {myNextAppointment ? (
@@ -153,83 +164,6 @@ const BarberHome = () => {
             </ScrollView>
          </View>
       </View>
-   );
-
-   return (
-      <Container>
-         <View className="mx-3 mb-2 flex-row items-center justify-between">
-            <Text className="text-center font-raleway text-xl">
-               Welcome {user?.name?.split(' ')[0]}
-            </Text>
-            <TouchableOpacity
-               onPress={() => shareBarberLink(user?.id!)}
-               className="h-10 w-10 items-center justify-center rounded-full bg-slate-300 p-1">
-               <Feather name="share" size={26} color="blue" />
-            </TouchableOpacity>
-         </View>
-         <ScrollView contentContainerClassName="gap-3">
-            <View className="rounded-md bg-card p-2 shadow-sm">
-               <Text variant={'title3'}>My Next Appointment</Text>
-               {myNextAppointment ? (
-                  <AppointmentCard
-                     appointmentId={myNextAppointment.id!}
-                     onPress={() => {
-                        router.push({
-                           pathname: '/barber-appointment-view',
-                           params: { appointmentId: myNextAppointment.id },
-                        });
-                     }}
-                  />
-               ) : (
-                  <View className="my-2">
-                     <Text className="text-muted">No Appointments Scheduled</Text>
-                  </View>
-               )}
-            </View>
-            <View className="rounded-md bg-card p-2 shadow-sm">
-               <Text variant={'title3'}>
-                  Waiting for confirmation ({waitinfForConfirmation.length})
-               </Text>
-               <TouchableOpacity
-                  disabled={waitinfForConfirmation.length === 0}
-                  onPress={() => router.push('/barber-appointments')}>
-                  <View className="mt-1 flex-row flex-wrap gap-2">
-                     {waitinfForConfirmation.map((c, index) => (
-                        <View className="flex-row items-center gap-1" key={c.startTime}>
-                           <Text>{c.startTime} </Text>
-                           {waitinfForConfirmation.length - 1 !== index && (
-                              <View className="h-1 w-1 rounded-full bg-slate-400" />
-                           )}
-                        </View>
-                     ))}
-                     {waitinfForConfirmation.length === 0 && (
-                        <Text className="text-muted">No appointments</Text>
-                     )}
-                  </View>
-               </TouchableOpacity>
-            </View>
-            <View className="rounded-md bg-card p-2 shadow-sm">
-               <Text className="text-center" variant={'title3'}>
-                  Today's Earnings
-               </Text>
-
-               <View className="items-center justify-center p-2">
-                  <Text>Estimated</Text>
-                  <Text>${allAppointments.toFixed(2)}</Text>
-               </View>
-               <View className="flex-row justify-evenly p-2">
-                  <View className="items-center justify-center">
-                     <Text className="text-muted">Earned</Text>
-                     <Text>${confirmedTotal.toFixed(2)}</Text>
-                  </View>
-                  <View className="items-center justify-center">
-                     <Text className="text-muted">Pending</Text>
-                     <Text>${(allAppointments - confirmedTotal).toFixed(2)}</Text>
-                  </View>
-               </View>
-            </View>
-         </ScrollView>
-      </Container>
    );
 };
 

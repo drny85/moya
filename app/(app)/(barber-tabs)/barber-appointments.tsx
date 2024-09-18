@@ -174,7 +174,6 @@ const ActionButtons = ({ appointment }: { appointment: Appointment }) => {
                {
                   text: 'OK, Cancel it',
                   onPress: () => {
-                     console.log('HERE');
                      updateAppointmentInDatabase({
                         ...appointment,
                         status: 'cancelled',

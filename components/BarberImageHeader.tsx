@@ -35,7 +35,8 @@ const BarberImageHeader = ({
    const { user } = useAuth();
    const { reviews } = useReviews();
    const barberReviews = reviews.filter((r) => r.barberId === barber.id);
-   const barberRating = barberReviews.reduce((acc, curr) => acc + curr.rating, 0) / reviews.length;
+   const barberRating =
+      barberReviews.reduce((acc, curr) => acc + curr.rating, 0) / reviews.length || 0;
 
    const toggleFavorite = async () => {
       if (!user || !barber) return;

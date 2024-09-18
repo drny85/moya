@@ -20,6 +20,7 @@ import { getDistanceFromLatLonInMeters } from '~/utils/getDistanceBetweenLocatio
 
 const Home = () => {
    const { user } = useAuth();
+
    const { location, loading } = useLocation();
    const favoriteBarber =
       !user?.isBarber && user?.favoriteBarber ? user?.favoriteBarber : undefined;
@@ -91,8 +92,8 @@ const Home = () => {
             </View>
             <View className="gap-2 rounded-l bg-card p-2 shadow-sm">
                <Text variant={'title2'}>My Barber</Text>
-               {!user?.isBarber && user?.favoriteBarber ? (
-                  <BarberCard barber={barber!} index={0} isOwner={false} />
+               {!user?.isBarber && user?.favoriteBarber && barber ? (
+                  <BarberCard barber={barber} index={0} isOwner={false} />
                ) : (
                   <View className="gap-3">
                      <Text className="font-medium text-muted">No Barber Available</Text>

@@ -1,5 +1,5 @@
 import { FontAwesome } from '@expo/vector-icons';
-import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
+import { BottomSheetTextInput, TouchableOpacity } from '@gorhom/bottom-sheet';
 import { isPast, isSameDay } from 'date-fns';
 import { router, useLocalSearchParams } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -68,7 +68,7 @@ const BookingPage = () => {
             !isPast(appointment.date) &&
             isSameDay(appointment.date, selectedDate)
       ) !== -1;
-   console.log(alreadyHaveAnAppointmentToday);
+
    const handleSchuduleAppointment = async () => {
       if (selectedServices.length === 0) {
          toastAlert({
@@ -327,11 +327,6 @@ const BookingPage = () => {
                   ${selectedServices.length > 0 && getAppointmentPrice(selectedServices)} Cash Only
                </Text>
             </View>
-            {alreadyHaveAnAppointmentToday && (
-               <Text className="text-center text-lg text-muted">
-                  You have an appointment for today already
-               </Text>
-            )}
             <View className="w-[80%] self-center">
                <Button
                   disabled={!barber.isAvailable || services.length === 0}
@@ -367,6 +362,11 @@ const BookingPage = () => {
             snapPoints={['70%']}
             onChange={handleSheetChanges}>
             <View className="mt-5 flex-1 items-center justify-center bg-card pb-8">
+               <TouchableOpacity
+                  onPress={() => bottomSheetModalRef.current?.close()}
+                  style={{ justifyContent: 'flex-end', alignSelf: 'flex-end', marginRight: 20 }}>
+                  <Text className="text-muted dark:text-slate-300">Cancel</Text>
+               </TouchableOpacity>
                <DateTimeAppointmentPicker
                   barber={barber}
                   onPress={() => bottomSheetModalRef.current?.close()}

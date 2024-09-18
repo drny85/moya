@@ -8,7 +8,6 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { Appearance, TouchableOpacity } from 'react-native';
-import { BackButton } from '~/components/BackButton';
 import { ThemeToggle } from '~/components/nativewindui/ThemeToggle';
 import { Fonts } from '~/constants/Fonts';
 import '~/global.css';
@@ -125,7 +124,7 @@ const useSchemeListener = () => {
    useEffect(() => {
       const listener = Appearance.addChangeListener(({ colorScheme }) => {
          Appearance.setColorScheme(colorScheme);
-         console.log(colorScheme);
+
          //setColorScheme(colorScheme)
       });
       return () => {

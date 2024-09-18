@@ -24,6 +24,7 @@ import { toastAlert } from '~/lib/toast';
 import { useColorScheme } from '~/lib/useColorScheme';
 import { useAuth } from '~/providers/AuthContext';
 import { useAppointmentStore } from '~/providers/useAppointmentStore';
+import { useAppointmentFlowStore } from '~/providers/useAppoitmentFlowStore';
 import { useBarbersStore } from '~/providers/useBarbersStore';
 import { dayOrder, Days, Review, ScheduleDay } from '~/shared/types';
 
@@ -40,7 +41,7 @@ const BarberDetails = () => {
    const [rating, setRating] = useState(5);
    const [reviewTitle, setReviewTitle] = useState('');
    const reviewText = useRef('');
-
+   const selectedServices = useAppointmentFlowStore((s) => s.selectedServices);
    const bottomSheetRef = useSheetRef();
    const appointments = useAppointmentStore((s) =>
       s.appointments.filter((a) => a.barber.id === barberId && a.customer.id === user?.id)
@@ -133,16 +134,18 @@ const BarberDetails = () => {
 
                   <TopServices services={services} />
 
-                  <View className="gap-3 rounded-lg bg-card p-2">
-                     <Text variant="title3">Available Appointments Today</Text>
-                     <TimeSlotPickerComponent
-                        barber={barber}
-                        date={new Date()}
-                        onTilePress={() => {
-                           router.push({ pathname: '/booking', params: { barberId } });
-                        }}
-                     />
-                  </View>
+                  {services.length > 0 && selectedServices.length > 0 && (
+                     <View className="gap-3 rounded-lg bg-card p-2">
+                        <Text variant="title3">Available Appointments Today</Text>
+                        <TimeSlotPickerComponent
+                           barber={barber}
+                           date={new Date()}
+                           onTilePress={() => {
+                              router.push({ pathname: '/booking', params: { barberId } });
+                           }}
+                        />
+                     </View>
+                  )}
                </View>
                <View className="rounded-lg bg-card shadow-sm">
                   <View className="p-2">

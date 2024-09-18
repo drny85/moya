@@ -21,17 +21,13 @@ export function useProtectedRoute() {
 
       // Redirect non-signed-in users trying to access protected routes
       if (user && inAuthGroup && !user.isBarber) {
-         console.log('3');
          // Redirect signed-in non-barber users away from the sign-in page
          router.replace('/(tabs)');
       } else if (user && inAuthGroup && user.isBarber) {
-         console.log('4');
          router.replace('/(barber-tabs)');
       } else if (user && inBarberGroup && !user.isBarber) {
-         console.log('5');
          router.replace('/(tabs)');
       } else if (user && inUserGroup && user.isBarber) {
-         console.log('6');
          router.replace('/(barber-tabs)');
       }
    }, [user, segments, mounted]);

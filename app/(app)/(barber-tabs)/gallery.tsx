@@ -1,7 +1,6 @@
 import { Feather } from '@expo/vector-icons';
 import { BottomSheetTextInput, TouchableOpacity } from '@gorhom/bottom-sheet';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
-import { router, useLocalSearchParams } from 'expo-router';
 import { deleteObject, ref } from 'firebase/storage';
 import { useEffect, useRef, useState } from 'react';
 import { Alert, View } from 'react-native';
@@ -12,7 +11,6 @@ import { Button } from '~/components/Button';
 import { Container } from '~/components/Container';
 import PhotoGallery from '~/components/Gallery';
 import IconImages from '~/components/IconImages';
-import MenuItem from '~/components/MenuItem';
 import { Sheet, useSheetRef } from '~/components/nativewindui/Sheet';
 import { Text } from '~/components/nativewindui/Text';
 import ReviewsList from '~/components/ReviewsLIst';
