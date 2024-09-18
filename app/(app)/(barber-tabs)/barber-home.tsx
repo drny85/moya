@@ -7,8 +7,10 @@ import { FlatList, ScrollView, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AnimatedNumber from '~/components/AnimatedNumber';
 import AppointmentCard from '~/components/Appointment/AppointmentCard';
+import { Button } from '~/components/Button';
 import { Container } from '~/components/Container';
 import { Text } from '~/components/nativewindui/Text';
+import { useServices } from '~/hooks/useServices';
 import { useAuth } from '~/providers/AuthContext';
 import { useAppointmentStore } from '~/providers/useAppointmentStore';
 import { calculateEarningsByFilter } from '~/utils/calculateEarningByFilter';
@@ -17,6 +19,7 @@ import { shareBarberLink } from '~/utils/shareBarberLink';
 const BarberHome = () => {
    const { user } = useAuth();
    const { top } = useSafeAreaInsets();
+   const { services, loading } = useServices(user?.id!);
    const data = useAppointmentStore((s) => s.appointments);
    const appointments = data.filter(
       (a) => a.status !== 'cancelled' && a.status !== 'completed' && !isPast(a.date)
@@ -50,8 +53,10 @@ const BarberHome = () => {
 
    return (
       <View className="flex-1 bg-background">
-         <ScrollView className="flex-1 gap-2">
-            <View style={{ paddingTop: top }} className="h-1/2 rounded-3xl bg-card p-2 shadow-sm">
+         <View className="flex-1 gap-2">
+            <View
+               style={{ paddingTop: top, height: '50%' }}
+               className="rounded-3xl bg-card p-2 shadow-sm">
                <View className="flex-row items-center justify-between">
                   <Image
                      source={
@@ -82,8 +87,23 @@ const BarberHome = () => {
                   </View>
                </View>
             </View>
-            <View className="flex-1 gap-2">
-               <View className="p-2">
+            {!loading && services.length === 0 && (
+               <View className="w-full items-center justify-center gap-2 p-2">
+                  <Text className="text-center text-xl text-muted">No services available</Text>
+                  <Button
+                     textStyle={{ paddingHorizontal: 20 }}
+                     title="Add Service"
+                     onPress={() => {
+                        router.push({
+                           pathname: '/(barber-tabs)/gallery',
+                           params: { show: 'true' },
+                        });
+                     }}
+                  />
+               </View>
+            )}
+            <ScrollView className="flex-1" contentContainerClassName="gap-2">
+               <View className="bg-card p-2">
                   <Text variant={'title3'}>My Next Appointment</Text>
                   {myNextAppointment ? (
                      <AppointmentCard
@@ -130,8 +150,8 @@ const BarberHome = () => {
                      }}
                   />
                </View>
-            </View>
-         </ScrollView>
+            </ScrollView>
+         </View>
       </View>
    );
 

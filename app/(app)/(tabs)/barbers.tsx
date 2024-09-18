@@ -1,13 +1,14 @@
 import { FlashList } from '@shopify/flash-list';
 import { View } from 'react-native';
-import BarberCard from '~/components/BarberCard';
+import BarberImageHeader from '~/components/BarberImageHeader';
 import { Container } from '~/components/Container';
 import { Text } from '~/components/nativewindui/Text';
+import BarbersSkelenton from '~/components/Skeletons/BarbersSkeleton';
 import { useBarbersStore } from '~/providers/useBarbersStore';
 
 const BarbersPage = () => {
-   const { barbers } = useBarbersStore();
-
+   const { barbers, loading } = useBarbersStore();
+   if (loading) return <BarbersSkelenton />;
    return (
       <Container>
          <FlashList
@@ -18,10 +19,18 @@ const BarbersPage = () => {
                   <Text className="text-xl text-muted">No Barbers Found</Text>
                </View>
             }
-            contentContainerClassName="p-2"
+            contentContainerClassName="p-2 mb-3"
             showsVerticalScrollIndicator={false}
-            renderItem={({ item, index }) => (
-               <BarberCard barber={item} index={index} isOwner={false} />
+            renderItem={({ item }) => (
+               <View className="m-2">
+                  <BarberImageHeader
+                     showTopControl={false}
+                     barber={item}
+                     showBookingButton={true}
+                     onPressBack={() => {}}
+                  />
+               </View>
+               // <BarberCard barber={item} index={index} isOwner={false} />
             )}
          />
       </Container>

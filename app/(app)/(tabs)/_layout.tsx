@@ -3,7 +3,6 @@ import { Image } from 'react-native';
 
 import { TabBarIcon } from '../../../components/TabBarIcon';
 
-import { useAppointments } from '~/hooks/useAppointments';
 import { useBarbers } from '~/hooks/useBarbers';
 import { useNotifications } from '~/hooks/useNotification';
 import { useColorScheme } from '~/lib/useColorScheme';
@@ -12,7 +11,6 @@ export default function TabLayout() {
    const { colors, isDarkColorScheme } = useColorScheme();
    useNotifications();
    useBarbers();
-   useAppointments();
 
    return (
       <Tabs
@@ -42,6 +40,7 @@ export default function TabLayout() {
             name="barbers"
             options={{
                title: 'Barbers',
+               headerTitle: 'Barbers',
 
                //headerShown: false,
 
@@ -52,7 +51,7 @@ export default function TabLayout() {
             name="appointments"
             options={{
                title: 'Appointments',
-               //headerShown: false,
+               headerShown: false,
                tabBarIcon: ({ color }) => (
                   <Image
                      source={require('~/assets/images/appointment.png')}

@@ -12,6 +12,7 @@ import { BackButton } from '~/components/BackButton';
 import { ThemeToggle } from '~/components/nativewindui/ThemeToggle';
 import { Fonts } from '~/constants/Fonts';
 import '~/global.css';
+import { useAppointments } from '~/hooks/useAppointments';
 import { useProtectedRoute } from '~/hooks/useProtectedRoutes';
 import { useUser } from '~/hooks/useUser';
 import { useColorScheme, useInitialAndroidBarSync } from '~/lib/useColorScheme';
@@ -28,7 +29,7 @@ export default function RootLayout() {
    const { colorScheme, isDarkColorScheme, colors } = useColorScheme();
    useSchemeListener();
    useUser();
-
+   useAppointments();
    const { mounted } = useProtectedRoute();
 
    useEffect(() => {

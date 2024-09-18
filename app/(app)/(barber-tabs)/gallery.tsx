@@ -1,6 +1,7 @@
 import { Feather } from '@expo/vector-icons';
 import { BottomSheetTextInput, TouchableOpacity } from '@gorhom/bottom-sheet';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
+import { router, useLocalSearchParams } from 'expo-router';
 import { deleteObject, ref } from 'firebase/storage';
 import { useEffect, useRef, useState } from 'react';
 import { Alert, View } from 'react-native';
@@ -29,6 +30,7 @@ const VALUES = ['Services', 'Photos', 'Reviews'];
 
 const GalleryReviews = () => {
    const { user } = useAuth();
+
    const { services, loading } = useServices(user?.id!);
    const [icon, setIcon] = useState<IconNames | null>(null);
    const [edit, setEdit] = useState(false);
@@ -87,6 +89,7 @@ const GalleryReviews = () => {
             });
             setServiceToEdit(null);
             setEdit(false);
+
             bottomSheetRef.current?.close();
          }
          //updateUser({ ...user, services: newServices });
@@ -116,6 +119,7 @@ const GalleryReviews = () => {
             });
             setServiceToEdit(null);
             setEdit(false);
+
             bottomSheetRef.current?.close();
          }
       } catch (error) {
@@ -255,6 +259,7 @@ const GalleryReviews = () => {
                         onPress={() => {
                            setEdit(false);
                            setServiceToEdit(null);
+
                            bottomSheetRef.current?.close();
                         }}>
                         <Feather name="chevron-left" size={26} />

@@ -22,7 +22,7 @@ const AppointmentCard = ({ appointmentId, onPress, actionsButton }: Props) => {
    const { getAppointment } = useAppointmentStore();
    const item = getAppointment(appointmentId);
    const { isDarkColorScheme } = useColorScheme();
-   const duration = getAppointmentDuration(item.services);
+   const duration = getAppointmentDuration(item?.services || []);
 
    if (!item) return null;
 

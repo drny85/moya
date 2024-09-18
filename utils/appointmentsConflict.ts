@@ -1,4 +1,4 @@
-import { addMinutes, isBefore, isSameDay } from 'date-fns';
+import { addMinutes, isBefore, isSameDay, isPast } from 'date-fns';
 import { Appointment } from '~/shared/types';
 
 export const appointmentsConflict = (
@@ -11,6 +11,7 @@ export const appointmentsConflict = (
       .filter(
          (a) =>
             isSameDay(a.date, appointmentDate) &&
+            !isPast(a.date) &&
             a.customer.id === userId &&
             a.status !== 'completed'
       )

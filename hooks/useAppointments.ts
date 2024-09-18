@@ -8,13 +8,12 @@ import { Appointment } from '~/shared/types';
 export const useAppointments = () => {
    const { user } = useAuth();
    const [loading, setLoading] = useState(false);
-   const setAppointments = useAppointmentStore((s) => s.setAppointments);
+   const { setAppointments } = useAppointmentStore();
    useEffect(() => {
-      if (!user) return;
-
-      const appointmentsQuery = user.isBarber
-         ? query(appointmentsCollection, where('barber.id', '==', user.id))
-         : appointmentsCollection;
+      const appointmentsQuery =
+         user && user.isBarber
+            ? query(appointmentsCollection, where('barber.id', '==', user.id))
+            : appointmentsCollection;
       return onSnapshot(appointmentsQuery, (snapshot) => {
          setLoading(true);
          const appointments = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })) as never;

@@ -44,6 +44,7 @@ const BookingPage = () => {
    const { colors } = useColorScheme();
    const barbers = useBarbersStore((state) => state.barbers);
    const { user } = useAuth();
+
    const barber = barbers.find((barber) => barber.id === barberId);
    const [phone, setPhone] = useState(user?.phone);
    const bottomSheetModalRef = useSheetRef();
@@ -67,7 +68,7 @@ const BookingPage = () => {
             !isPast(appointment.date) &&
             isSameDay(appointment.date, selectedDate)
       ) !== -1;
-
+   console.log(alreadyHaveAnAppointmentToday);
    const handleSchuduleAppointment = async () => {
       if (selectedServices.length === 0) {
          toastAlert({
@@ -250,6 +251,10 @@ const BookingPage = () => {
       }
    }, [appointmentId]);
 
+   useEffect(() => {
+      if (user?.phone) setPhone(user.phone);
+   }, [user?.phone]);
+
    if (!barber || loading) return null;
 
    return (
@@ -322,6 +327,11 @@ const BookingPage = () => {
                   ${selectedServices.length > 0 && getAppointmentPrice(selectedServices)} Cash Only
                </Text>
             </View>
+            {alreadyHaveAnAppointmentToday && (
+               <Text className="text-center text-lg text-muted">
+                  You have an appointment for today already
+               </Text>
+            )}
             <View className="w-[80%] self-center">
                <Button
                   disabled={!barber.isAvailable || services.length === 0}

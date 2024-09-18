@@ -19,7 +19,7 @@ const ReviewsList = ({ barberId }: Props) => {
 
    if (loading) return <ReviewSkelenton />;
 
-   if (!data.length)
+   if (data.length === 0)
       return (
          <View>
             <Text className="mt-10 text-center text-lg text-muted dark:text-white">

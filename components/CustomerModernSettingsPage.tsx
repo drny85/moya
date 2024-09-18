@@ -22,10 +22,12 @@ import { Text } from './nativewindui/Text';
 import { ThemeToggle } from './nativewindui/ThemeToggle';
 import ParallaxScrollView from './ParallaxScrollView';
 import { router } from 'expo-router';
+import { Container } from './Container';
+import { ActivityIndicator } from './nativewindui/ActivityIndicator';
 
 export default function CustomerModernSettingsPage() {
    const { user, logOut } = useAuth();
-
+   const [loading, setLoading] = useState(false);
    const [view, setView] = useState<'schedule' | 'services' | 'user-update' | undefined>(undefined);
 
    const { photo, selectedImage, handleImageUpload, resetAll, uploadPhoto } = usePhoto();
@@ -49,6 +51,7 @@ export default function CustomerModernSettingsPage() {
 
    const deleteAccount = async () => {
       try {
+         setLoading(true);
          const { data } = await deleteUserFunction();
 
          console.log(data);
@@ -60,6 +63,8 @@ export default function CustomerModernSettingsPage() {
          }
       } catch (error) {
          console.log('Error deleteing account', error);
+      } finally {
+         setLoading(false);
       }
    };
 
@@ -68,6 +73,7 @@ export default function CustomerModernSettingsPage() {
          Alert.alert('Delete Account', 'Are you sure you want to delete your account?', [
             {
                text: 'Yes',
+               style: 'destructive',
                onPress: deleteAccount,
             },
             { text: 'Cancel', style: 'cancel' },
@@ -102,6 +108,16 @@ export default function CustomerModernSettingsPage() {
          uploadPhoto(photo, user?.id!);
       }
    }, [photo, selectedImage]);
+
+   if (loading)
+      return (
+         <Container>
+            <View className="flex-1 items-center justify-center gap-5">
+               <Text className="text-2xl font-semibold">Deleting Account</Text>
+               <ActivityIndicator size={'large'} />
+            </View>
+         </Container>
+      );
 
    return (
       <ParallaxScrollView

@@ -7,7 +7,6 @@ type AppointmentStoreParams = {
    setAppointments: (appointments: Appointment[]) => void;
    addNewAppointment: (appointment: Appointment) => Promise<boolean>;
    getAppointment: (appointmetId: string) => Appointment;
-
    updateAppointmentsById: (appointmentId: string, appointment: Appointment) => void;
 };
 export const useAppointmentStore = create<AppointmentStoreParams>((set, get) => ({

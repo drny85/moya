@@ -66,7 +66,10 @@ const AppointmentPage = () => {
          </Container>
       );
    return (
-      <View className="flex-1 p-1">
+      <Container>
+         <Text variant={'heading'} className="mb-2 text-center">
+            Appointments
+         </Text>
          <SegmentedControl
             values={VALUES}
             fontStyle={{ fontSize: 16, color: isDarkColorScheme ? '#ffffff' : '#212121' }}
@@ -113,7 +116,7 @@ const AppointmentPage = () => {
          <ConfettiComponent
             ref={confettiRef} // <reference path="" />
          />
-      </View>
+      </Container>
    );
 };
 
