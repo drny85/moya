@@ -52,12 +52,12 @@ const AppointmentPage = () => {
       return (
          <Container>
             <View className="flex-1 items-center justify-center gap-6">
-               <Text className="text-xl text-muted dark:text-white">
+               <Text className="font-raleway text-xl text-muted dark:text-white">
                   Please login to view your appointments
                </Text>
                <Button
                   title="Login"
-                  textStyle={{ paddingHorizontal: 20 }}
+                  textStyle={{ paddingHorizontal: 22 }}
                   onPress={() => {
                      router.push({ pathname: '/login', params: { returnUrl: '/appointments' } });
                   }}

@@ -12,12 +12,13 @@ import { useAuth } from '~/providers/AuthContext';
 
 type Props = {
    mode: 'login' | 'register';
+   isBarber?: string;
 };
 const LoginScreen = () => {
    const [isSignUp, setIsSignUp] = useState(false);
    const { loading } = useAuth();
    const { colors } = useColorScheme();
-   const { mode } = useLocalSearchParams<Props>();
+   const { mode, isBarber } = useLocalSearchParams<Props>();
    useEffect(() => {
       if (mode === 'register') setIsSignUp(true);
    }, [mode]);
@@ -52,7 +53,11 @@ const LoginScreen = () => {
             </TouchableOpacity>
          </View>
 
-         {isSignUp ? <SignupForm /> : <LoginForm />}
+         {isSignUp ? (
+            <SignupForm isBarber={isBarber !== undefined ? true : false} />
+         ) : (
+            <LoginForm />
+         )}
       </KeyboardScreen>
    );
 };

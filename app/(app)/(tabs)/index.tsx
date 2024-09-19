@@ -1,11 +1,12 @@
 import { isPast } from 'date-fns';
 import { BlurView } from 'expo-blur';
-import { router } from 'expo-router';
+import { Redirect, router } from 'expo-router';
 import React from 'react';
 import { View } from 'react-native';
 import AppointmentCard from '~/components/Appointment/AppointmentCard';
 import BarberCard from '~/components/BarberCard';
 import { Button } from '~/components/Button';
+import Loading from '~/components/Loading';
 import MapHeader from '~/components/MapHeader';
 import { Text } from '~/components/nativewindui/Text';
 import ParallaxScrollView from '~/components/ParallaxScrollView';
@@ -20,7 +21,6 @@ import { getDistanceFromLatLonInMeters } from '~/utils/getDistanceBetweenLocatio
 
 const Home = () => {
    const { user } = useAuth();
-
    const { location, loading } = useLocation();
    const favoriteBarber =
       !user?.isBarber && user?.favoriteBarber ? user?.favoriteBarber : undefined;
@@ -83,7 +83,7 @@ const Home = () => {
                   />
                ) : (
                   <View className="gap-3">
-                     <Text className="font-medium text-muted">No Upcoming Appointment</Text>
+                     <Text className="text-muted dark:text-slate-400">No Upcoming Appointment</Text>
                      <View className="w-1/2 self-center">
                         <Button title="Book Now" onPress={() => router.push('/barbers')} />
                      </View>
@@ -96,13 +96,29 @@ const Home = () => {
                   <BarberCard barber={barber} index={0} isOwner={false} />
                ) : (
                   <View className="gap-3">
-                     <Text className="font-medium text-muted">No Barber Available</Text>
+                     <Text className="text-muted dark:text-slate-400">No Barber Available</Text>
                      <View className="w-1/2 self-center">
                         <Button title="Find Barber" onPress={() => router.push('/barbers')} />
                      </View>
                   </View>
                )}
             </View>
+            {!user && (
+               <View className="gap-4 rounded-l bg-card p-2 shadow-sm">
+                  <Text variant={'title3'}>Want to sign up as a Barber?</Text>
+                  <View className="w-1/2 self-center">
+                     <Button
+                        title="Sign Up"
+                        onPress={() =>
+                           router.push({
+                              pathname: '/login',
+                              params: { mode: 'register', isBarber: 'true' },
+                           })
+                        }
+                     />
+                  </View>
+               </View>
+            )}
          </ParallaxScrollView>
       </View>
    );

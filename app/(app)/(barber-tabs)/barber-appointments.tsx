@@ -79,7 +79,7 @@ const BarberAppointments = () => {
             }}
          />
          {selectedIndex === 1 && (
-            <View className="m-1 min-h-36 bg-card shadow-sm">
+            <View className="m-1 min-h-36 rounded-md bg-card shadow-sm">
                <WeekSelector
                   schedule={(user?.isBarber && user.schedule) || DEFAULT_SCHEDULE}
                   onPress={(day) => {

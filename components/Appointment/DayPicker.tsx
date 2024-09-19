@@ -31,7 +31,7 @@ const Day: React.FC<DayProps> = ({ date, label, isPast, isSelected, onPress }) =
          onPress(date);
       }}
       disabled={isPast}
-      className={`flex-1 items-center rounded-lg p-2 ${isSelected ? 'bg-accent' : 'bg-white'} ${isPast ? 'opacity-30' : ''}`}>
+      className={`flex-1 items-center rounded-lg p-2 shadow-md ${isSelected ? 'bg-accent' : 'bg-white'} ${isPast ? 'opacity-30' : ''}`}>
       <Text style={[styles.dayText, isSelected && styles.selectedDayText]}>
          {label.split(' ')[0]}
       </Text>

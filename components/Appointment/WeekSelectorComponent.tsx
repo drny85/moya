@@ -33,7 +33,7 @@ const Day: React.FC<DayProps> = ({ date, isPast, isSelected, isOff, onPress, has
             setSelectedTimeSlot(null);
             setIndex(0);
          }}
-         className={`my-1 items-center rounded-lg shadow-sm ${isSelected ? 'bg-accent' : isOff ? 'bg-grey border-2 border-dashed border-slate-400' : 'bg-card'}`}>
+         className={`my-1 items-center rounded-lg shadow-sm  ${isSelected ? 'bg-accent' : isOff ? 'bg-grey border-2 border-dashed border-slate-400' : 'bg-card'}`}>
          <Animated.View
             entering={SlideInRight}
             key={date.toISOString()}

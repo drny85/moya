@@ -88,7 +88,7 @@ const BarberHome = () => {
             </View>
 
             {!loading && services.length === 0 && (
-               <View className="w-full items-center justify-center gap-2 p-2">
+               <View className="w-full items-center justify-center gap-2 p-1">
                   <Text className="text-center text-xl text-muted">No services available</Text>
                   <Button
                      textStyle={{ paddingHorizontal: 20 }}

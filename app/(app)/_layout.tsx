@@ -8,6 +8,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { Appearance, TouchableOpacity } from 'react-native';
+import Loading from '~/components/Loading';
 import { ThemeToggle } from '~/components/nativewindui/ThemeToggle';
 import { Fonts } from '~/constants/Fonts';
 import '~/global.css';
@@ -15,6 +16,7 @@ import { useAppointments } from '~/hooks/useAppointments';
 import { useProtectedRoute } from '~/hooks/useProtectedRoutes';
 import { useUser } from '~/hooks/useUser';
 import { useColorScheme, useInitialAndroidBarSync } from '~/lib/useColorScheme';
+import { useAuth } from '~/providers/AuthContext';
 import { NAV_THEME } from '~/theme';
 SplashScreen.preventAutoHideAsync();
 export {
@@ -28,6 +30,7 @@ export default function RootLayout() {
    const { colorScheme, isDarkColorScheme, colors } = useColorScheme();
    useSchemeListener();
    useUser();
+   const { loading } = useAuth();
    useAppointments();
    const { mounted } = useProtectedRoute();
 
@@ -35,12 +38,13 @@ export default function RootLayout() {
       if (loaded && !error && mounted) {
          SplashScreen.hideAsync();
       }
-   }, [loaded, error]);
+   }, [loaded, error, mounted]);
 
    if (!loaded && !error) {
       return null;
    }
 
+   if (loading) return <Loading />;
    // if (user && user.isBarber) return <Redirect href={'/(app)/(barber-tabs)'} />;
 
    return (

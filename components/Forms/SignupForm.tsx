@@ -41,12 +41,17 @@ const signupSchema = z
    });
 
 type SignupFormData = z.infer<typeof signupSchema>;
-
-const SignupForm: React.FC = () => {
+type SignupFormProps = {
+   isBarber?: boolean;
+};
+const SignupForm: React.FC<SignupFormProps> = ({ isBarber }) => {
    const { signUp, createUser } = useAuth();
    const params = useLocalSearchParams();
 
    const { control, handleSubmit } = useForm<SignupFormData>({
+      defaultValues: {
+         isBarber,
+      },
       resolver: zodResolver(signupSchema),
    });
 

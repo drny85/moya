@@ -32,7 +32,8 @@ const BarberCard = ({ barber, index, isOwner, activeNode, disabled = false }: Pr
    const { reviews } = useReviews();
    const { isDarkColorScheme } = useColorScheme();
    const barberReviews = reviews.filter((r) => r.barberId === barber?.id);
-   const barberRating = barberReviews.reduce((acc, curr) => acc + curr.rating, 0) / reviews.length;
+   const barberRating =
+      barberReviews.reduce((acc, curr) => acc + curr.rating, 0) / reviews.length || 0;
 
    if (!barber) return null;
    return (

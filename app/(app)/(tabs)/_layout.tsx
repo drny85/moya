@@ -9,6 +9,7 @@ import { useColorScheme } from '~/lib/useColorScheme';
 
 export default function TabLayout() {
    const { colors, isDarkColorScheme } = useColorScheme();
+
    useNotifications();
    useBarbers();
 
