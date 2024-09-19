@@ -61,7 +61,6 @@ const LoginForm: React.FC = () => {
             autoFocus
             label="Email Address"
             keyboardType="email-address"
-            enablesReturnKeyAutomatically
             autoComplete="off"
             placeholder="john.smith@email.com"
          />
