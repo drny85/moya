@@ -10,8 +10,9 @@ import { Text } from '../nativewindui/Text';
 import TextInput from '../TextInput';
 
 import { Sheet, useSheetRef } from '../nativewindui/Sheet';
-import ForgotPassword from './ForgtoPassword';
+
 import { router, useLocalSearchParams } from 'expo-router';
+import ForgotPassword from './ForgotPassword';
 
 const loginSchema = z.object({
    email: z.string().email(),
@@ -23,6 +24,7 @@ type LoginFormData = z.infer<typeof loginSchema>;
 const LoginForm: React.FC = () => {
    const bottomSheetRef = useSheetRef();
    const [showPassword, setShowPassword] = useState(false);
+   const [showForgotPassword, setShowForgotPassword] = useState(false);
    const { control, handleSubmit } = useForm<LoginFormData>({
       resolver: zodResolver(loginSchema),
    });
@@ -43,7 +45,14 @@ const LoginForm: React.FC = () => {
          Alert.alert(FIREBASE_ERRORS[err.message]);
       }
    };
-
+   if (showForgotPassword)
+      return (
+         <ForgotPassword
+            onPress={() => {
+               setShowForgotPassword(false);
+            }}
+         />
+      );
    return (
       <View>
          <TextInput
@@ -72,7 +81,11 @@ const LoginForm: React.FC = () => {
             </TouchableOpacity>
          </View>
          <Button title="Login" onPress={handleSubmit(onSubmit)} />
-         <TouchableOpacity className="mt-8" onPress={() => bottomSheetRef.current?.present()}>
+         <TouchableOpacity
+            className="mt-8"
+            onPress={() => {
+               setShowForgotPassword(true);
+            }}>
             <Text className="text-center text-muted dark:text-slate-300">Forgot Password?</Text>
          </TouchableOpacity>
          {/* <Sheet snapPoints={['90%']} ref={forgotPasswordRef}>

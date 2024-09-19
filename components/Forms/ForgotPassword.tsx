@@ -45,7 +45,7 @@ const ForgotPassword = ({ onPress }: { onPress: () => void }) => {
       }
    };
    return (
-      <KeyboardScreen>
+      <View className="flex-1">
          <TouchableOpacity className="ml-2 flex-row items-center gap-1" onPress={onPress}>
             <Feather name="chevron-left" size={24} color={isDarkColorScheme ? 'white' : 'black'} />
             <Text className="text-muted dark:text-white">Back</Text>
@@ -61,7 +61,7 @@ const ForgotPassword = ({ onPress }: { onPress: () => void }) => {
 
             <Button title="Get Reset Email" onPress={handleSubmit(onSubmit)} />
          </View>
-      </KeyboardScreen>
+      </View>
    );
 };
 
